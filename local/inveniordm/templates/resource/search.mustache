@@ -1,0 +1,120 @@
+<div class="search-page">
+<div class="page-hero">
+    <div class="page-hero-content">
+        <h1>Academic Repository Portal</h1>
+        <p>
+            Search research papers, books, theses and learning resources
+        </p>
+    </div>
+    <div class="hero-actions">
+        <a href="{{backurl}}" class="btn btn-outline-secondary">
+            <i class="fa fa-arrow-left"></i>
+            Back
+        </a>
+    </div>
+</div>
+
+<div class="search-card mb-4">
+    <form method="get">
+        <div class="input-group invenio-search-box">
+            <input type="text" name="q" value="{{query}}" class="form-control form-control-lg" placeholder="Search resources...">
+            <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-search"></i>Search</button>
+            <a href="{{reseturl}}" class="btn btn-outline-secondary"><i class="fa fa-refresh"></i>Reset</a>
+        </div>
+
+        <div class="row mt-3 invenio-filter-section">
+            <div class="col-12 mb-3">
+                <select name="format" class="form-select">
+                    <option value="">All Formats</option>
+                    <option value="pdf" {{#selected_pdf}}selected{{/selected_pdf}}>PDF</option>
+                    <option value="doc" {{#selected_doc}}selected{{/selected_doc}}>DOC</option>
+                    <option value="docx" {{#selected_docx}}selected{{/selected_docx}}>DOCX</option>
+                    <option value="ppt" {{#selected_ppt}}selected{{/selected_ppt}}>PPT</option>
+                    <option value="pptx" {{#selected_pptx}}selected{{/selected_pptx}}>PPTX</option>
+                    <option value="xls" {{#selected_xls}}selected{{/selected_xls}}>XLS</option>
+                    <option value="xlsx" {{#selected_xlsx}}selected{{/selected_xlsx}}>XLSX</option>
+                </select>
+            </div>
+
+            <div class="col-12">
+                <select name="level" class="form-select">
+                    <option value="">All Educational Levels</option>
+                    <option value="school education"
+                        {{#selected_school}}selected{{/selected_school}}>
+                        School Education
+                    </option>
+                    <option value="higher education"
+                        {{#selected_higher}}selected{{/selected_higher}}>
+                        Higher Education
+                    </option>
+                    <option value="bachelor's degree"
+                        {{#selected_bachelor}}selected{{/selected_bachelor}}>
+                        Bachelor Degree
+                    </option>
+                    <option value="master's degree"
+                        {{#selected_master}}selected{{/selected_master}}>
+                        Master Degree
+                    </option>
+                    <option value="doctorate"
+                        {{#selected_doctorate}}selected{{/selected_doctorate}}>
+                        Doctorate
+                    </option>
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+<h4 class="mb-4">Search Results</h4>
+{{#records}}
+
+<div class="card invenio-card mb-4">
+    <div class="card-body">
+        <h3 class="invenio-title mb-3">{{title}}</h3>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="mb-2">
+                    <strong>Author:</strong>
+                    {{author}}
+                </div>
+
+                <div class="mb-2">
+                    <strong>Discipline:</strong>
+                    {{discipline}}
+                </div>
+
+                <div class="mb-2">
+                    <strong>Educational Level:</strong>
+                    {{educationallevel}}
+                </div>
+            </div>
+
+            <div class="col-md-4 text-md-end">
+                <span class="bg-secondary text-white fw-bolder text-center"
+                    style="
+                        display:inline-block;
+                        width:90px;
+                        padding:4px 8px;
+                        border-radius:4px;
+                    "
+                >
+                    {{format}}
+                </span>
+            </div>
+        </div>
+
+        <hr>
+
+        <a href="{{viewurl}}" class="btn btn-outline-primary">View Details</a>
+    </div>
+</div>
+{{/records}}
+
+{{> local_inveniordm/resource/pagination}}
+
+{{^records}}
+<div class="alert alert-secondary">
+    No records found.
+</div>
+{{/records}}
+
+</div>

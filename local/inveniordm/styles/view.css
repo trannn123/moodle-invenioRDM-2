@@ -1,0 +1,281 @@
+.btn,
+.btn-outline-secondary,
+.btn-outline-primary,
+.btn-primary,
+.btn-outline-dark {
+    border-radius: 999px !important;
+    transition: var(--transition) !important;
+    font-weight: 600 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    text-decoration: none !important;
+    border-width: 2px !important;
+    padding: 8px 24px !important;
+    font-size: 0.95rem !important;
+    box-sizing: border-box !important;
+    line-height: 1.5 !important;
+    min-height: 44px;
+    justify-content: center !important;
+    outline: none !important;
+    box-shadow: none !important;
+    flex-shrink: 0;
+}
+
+.btn-outline-secondary {
+    border: 2px solid var(--gray-300) !important;
+    color: var(--gray-700) !important;
+    background: transparent !important;
+    border-radius: 50px !important;
+    padding: 8px 24px !important;
+    font-weight: 600 !important;
+    transition: var(--transition) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    text-decoration: none !important;
+}
+
+.btn-outline-secondary:hover {
+    background: var(--navy-dark) !important;
+    color: var(--white) !important;
+    border-color: var(--navy-dark) !important;
+    transform: translateX(-4px) !important;
+    box-shadow: 0 8px 24px rgba(10, 25, 41, 0.15) !important;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--royal-blue), var(--cyan-bright)) !important;
+    border: none !important;
+    border-radius: 50px !important;
+    padding: 8px 24px !important;
+    font-weight: 600 !important;
+    color: var(--white) !important;
+    box-shadow: 0 4px 16px rgba(26, 95, 180, 0.3) !important;
+    transition: var(--transition) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    text-decoration: none !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 8px 32px rgba(26, 95, 180, 0.45) !important;
+    background: linear-gradient(135deg, var(--cyan-bright), var(--royal-blue)) !important;
+    color: var(--white) !important;
+}
+
+.detail-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.download-actions {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    padding: 16px 24px;
+    border: 1px solid var(--gray-200);
+    transition: var(--transition);
+    margin-bottom: 28px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.download-actions:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.download-actions .btn-primary {
+    padding: 10px 32px !important;
+    font-size: 1rem !important;
+}
+
+.invenio-detail-card {
+    background: var(--white);
+    border: none;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: var(--transition);
+    height: 100%;
+    max-width: 100% !important;
+}
+
+.invenio-detail-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.invenio-detail-card .card-header {
+    background: linear-gradient(90deg, var(--navy-dark), var(--navy-mid));
+    border-bottom: 3px solid var(--cyan-bright);
+    padding: 16px 24px;
+}
+
+.invenio-detail-card .card-header h5 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--white);
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+}
+
+.invenio-detail-card .card-header h5 i {
+    color: var(--cyan-light);
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+.invenio-detail-card .card-body {
+    padding: 24px 28px;
+}
+
+.detail-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    flex: 0 0 140px;
+    font-weight: 600;
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.detail-value {
+    flex: 1;
+    color: var(--gray-800);
+    font-weight: 500;
+    word-break: break-word;
+}
+
+.invenio-keyword {
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: linear-gradient(135deg, var(--royal-blue), var(--cyan-bright));
+    color: var(--white);
+    box-shadow: 0 2px 10px rgba(26, 95, 180, 0.25);
+    transition: var(--transition);
+    margin: 4px 8px 4px 0;
+    border: none;
+}
+
+.invenio-keyword:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 95, 180, 0.35);
+}
+
+.row.g-4 {
+    margin-top: 0 !important;
+}
+
+.row.g-4 > [class*="col-"] {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 24px;
+}
+
+.invenio-detail-card {
+    margin-bottom: 0;
+}
+
+@media (max-width: 992px) {
+    .detail-label {
+        flex: 0 0 120px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .download-actions {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+    }
+
+    .download-actions .btn-primary {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 10px 0;
+    }
+
+    .detail-label {
+        flex: unset;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        opacity: 0.7;
+    }
+
+    .detail-value {
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .invenio-detail-card .card-body {
+        padding: 18px 16px;
+    }
+
+    .invenio-detail-card .card-header {
+        padding: 12px 16px;
+    }
+
+    .invenio-detail-card .card-header h5 {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .invenio-keyword {
+        font-size: 0.8rem;
+        padding: 4px 14px;
+    }
+}
+
+#topofscroll.main-inner,
+#region-main,
+#page-content,
+#region-main-box {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100% !important;
+}
+
+.detail-page {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+    width: 100%;
+    box-sizing: border-box;
+}

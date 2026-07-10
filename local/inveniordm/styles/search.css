@@ -1,0 +1,321 @@
+.btn-outline-secondary {
+    border: 2px solid var(--gray-300);
+    color: var(--gray-700);
+    background: transparent;
+    border-radius: 50px;
+    padding: 8px 22px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-outline-secondary:hover {
+    background: var(--navy-dark);
+    color: var(--white);
+    border-color: var(--navy-dark);
+    transform: translateX(-4px);
+    box-shadow: 0 8px 24px rgba(10, 25, 41, 0.15);
+}
+
+.btn-outline-secondary i {
+    margin-right: 8px;
+}
+
+.invenio-search-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    padding: 20px 24px;
+    border: 1px solid var(--gray-200);
+    transition: var(--transition);
+}
+
+.invenio-search-box:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.invenio-search-box input.form-control {
+    flex: 1;
+    min-width: 200px;
+
+    border: 2px solid var(--gray-200) !important;
+    border-radius: 50px !important;
+
+    padding: 10px 20px;
+    height: 48px;
+
+    font-size: 1rem;
+    background: var(--white);
+    transition: var(--transition);
+}
+
+.invenio-search-box input.form-control:focus {
+    border-color: var(--cyan-bright) !important;
+    box-shadow: 0 0 0 4px rgba(0, 180, 216, .15) !important;
+}
+
+.invenio-search-box button.btn {
+    border-radius: 50px !important;
+    background: linear-gradient(135deg, var(--royal-blue), var(--cyan-bright));
+    border: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--white);
+    box-shadow: 0 4px 16px rgba(26, 95, 180, 0.3);
+    transition: var(--transition);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.invenio-search-box button.btn:hover {
+    transform: scale(1.02) translateY(-2px);
+    box-shadow: 0 8px 32px rgba(26, 95, 180, 0.45);
+    background: linear-gradient(135deg, var(--cyan-bright), var(--royal-blue));
+}
+
+.invenio-filter-section {
+    margin-top: 20px;
+}
+
+.invenio-filter-section .form-select {
+    height: 48px !important;
+    border: 2px solid var(--gray-200) !important;
+    border-radius: 50px !important;
+    background-color: var(--white) !important;
+    box-shadow: var(--shadow-card) !important;
+    padding-left: 22px !important;
+    padding-right: 48px !important;
+    font-size: 1rem !important;
+    color: var(--gray-700) !important;
+    transition: var(--transition) !important;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%234a5d73' viewBox='0 0 16 16'%3E%3Cpath d='M1.5 5.5l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 14px;
+}
+
+.invenio-filter-section .form-select:hover {
+    border-color: var(--royal-blue) !important;
+    box-shadow: 0 4px 20px rgba(10, 25, 41, 0.15) !important;
+}
+
+.invenio-filter-section .form-select:focus {
+    outline: none !important;
+    border-color: var(--cyan-bright) !important;
+    box-shadow: 0 0 0 4px rgba(0, 180, 216, 0.15) !important;
+}
+
+.invenio-card {
+    border: none;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    transition: var(--transition);
+    background: var(--white);
+    overflow: hidden;
+}
+
+.invenio-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+.invenio-card .card-body {
+    padding: 28px 32px;
+}
+
+.invenio-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--navy-dark);
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--navy-dark), var(--royal-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.3;
+}
+
+.invenio-card .mb-2 {
+    color: var(--gray-700);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.invenio-card strong {
+    color: var(--gray-600);
+    font-weight: 600;
+}
+
+.invenio-card hr {
+    margin: 18px 0;
+    border: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gray-200), transparent);
+}
+
+.invenio-card .col-md-4 .bg-secondary {
+    display: inline-block !important;
+    padding: 6px 16px !important;
+    border-radius: 50px !important;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    white-space: nowrap !important;
+    background: linear-gradient(135deg, var(--gray-500), var(--gray-600)) !important;
+    color: var(--white) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+    width: auto !important;
+    min-width: 60px;
+    text-align: center;
+}
+
+.invenio-card .col-md-4 .bg-secondary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline-primary {
+    border: 2px solid var(--royal-blue);
+    color: var(--royal-blue);
+    border-radius: 50px;
+    padding: 8px 24px;
+    font-weight: 600;
+    transition: var(--transition);
+    background: transparent;
+}
+
+.btn-outline-primary:hover {
+    background: linear-gradient(135deg, var(--royal-blue), var(--cyan-bright));
+    border-color: transparent;
+    color: var(--white);
+    transform: translateX(4px);
+    box-shadow: 0 4px 16px rgba(26, 95, 180, 0.3);
+}
+
+.alert-secondary {
+    background: var(--gray-100);
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius-md);
+    color: var(--gray-600);
+    font-size: 1.1rem;
+    padding: 32px 20px;
+}
+
+@media (max-width: 768px) {
+    .invenio-search-box {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .invenio-search-box input.form-control {
+        width: 100%;
+        min-width: unset;
+        height: 44px;
+        font-size: .95rem;
+    }
+
+    .invenio-search-box button.btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px;
+        flex: 0 0 100%;
+    }
+
+    .invenio-search-box .btn {
+        width: 100%;
+        height: 44px;
+        justify-content: center;
+    }
+
+    .invenio-filter-section .col-md-6 {
+        margin-bottom: 12px;
+    }
+
+    .invenio-filter-section .form-select {
+        height: 44px !important;
+        font-size: .95rem !important;
+    }
+
+    .invenio-card .card-body {
+        padding: 20px;
+    }
+
+    .invenio-title {
+        font-size: 1.25rem;
+    }
+
+    .invenio-card .col-md-4.text-md-end {
+        text-align: left !important;
+        margin-top: 12px;
+    }
+
+    .invenio-card .col-md-4 .bg-secondary {
+        font-size: 0.75rem !important;
+        padding: 4px 14px !important;
+    }
+
+    .btn-outline-secondary {
+        padding: 8px 24px !important;
+        font-size: .95rem !important;
+    }
+
+    .invenio-search-box .btn,
+    .btn-outline-secondary {
+        width: 100% !important;
+        justify-content: center !important;
+        height: 44px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .invenio-title {
+        font-size: 1.1rem;
+    }
+
+    .btn-outline-primary {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.invenio-search-box,
+.invenio-card,
+.invenio-search-section {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.invenio-search-box .form-control {
+    flex: 1 1 auto !important;
+}
+
+.invenio-card .card-body {
+    padding: 20px 24px !important;
+}
+
+#topofscroll.main-inner,
+#region-main,
+#page-content,
+#region-main-box {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100% !important;
+}
+
+.search-page {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+    width: 100%;
+    box-sizing: border-box;
+}

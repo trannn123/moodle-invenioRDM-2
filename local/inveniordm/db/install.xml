@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/inveniordm/db"
+       VERSION="2026060100"
+       COMMENT="InvenioRDM plugin tables"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+
+    <TABLES>
+        <TABLE NAME="local_inveniordm_course_resources"
+               COMMENT="Resource attached to Moodle course">
+            <FIELDS>
+                <FIELD NAME="id"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="true"/>
+                <FIELD NAME="courseid"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="recordid"
+                       TYPE="char"
+                       LENGTH="100"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="title"
+                       TYPE="char"
+                       LENGTH="255"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="timecreated"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary"
+                     TYPE="primary"
+                     FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+
+        <TABLE NAME="local_inveniordm_submissions"
+               COMMENT="Student submissions">
+            <FIELDS>
+                <FIELD NAME="id"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="true"/>
+                <FIELD NAME="assignmentid"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="studentid"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="recordid"
+                       TYPE="char"
+                       LENGTH="100"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="filename"
+                       TYPE="char"
+                       LENGTH="255"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="timecreated"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="status"
+                       TYPE="char"
+                       LENGTH="50"
+                       NOTNULL="true"
+                       DEFAULT="submitted"
+                       SEQUENCE="false"/>
+
+                <FIELD NAME="grade"
+                       TYPE="char"
+                       LENGTH="50"
+                       NOTNULL="false"
+                       SEQUENCE="false"/>
+
+                <FIELD NAME="feedback"
+                       TYPE="text"
+                       NOTNULL="false"
+                       SEQUENCE="false"/>
+
+                <FIELD NAME="published_to_invenio"
+                       TYPE="int"
+                       LENGTH="1"
+                       NOTNULL="true"
+                       DEFAULT="0"
+                       SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary"
+                     TYPE="primary"
+                     FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="assignment_student_uix"
+                       UNIQUE="true"
+                       FIELDS="assignmentid,studentid"/>
+            </INDEXES>
+        </TABLE>
+
+        <TABLE NAME="local_inveniordm_assignments"
+               COMMENT="Assignments">
+            <FIELDS>
+                <FIELD NAME="id"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="true"/>
+                <FIELD NAME="courseid"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="name"
+                       TYPE="char"
+                       LENGTH="255"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="instructions"
+                       TYPE="text"
+                       NOTNULL="false"
+                       SEQUENCE="false"/>
+                <FIELD NAME="duedate"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="createdby"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="timecreated"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary"
+                     TYPE="primary"
+                     FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+
+        <TABLE NAME="local_inveniordm_assignment_resources"
+               COMMENT="Resources attached to assignment">
+            <FIELDS>
+                <FIELD NAME="id"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="true"/>
+                <FIELD NAME="assignmentid"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="recordid"
+                       TYPE="char"
+                       LENGTH="100"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="title"
+                       TYPE="char"
+                       LENGTH="255"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+            </FIELDS>
+
+            <KEYS>
+                <KEY NAME="primary"
+                     TYPE="primary"
+                     FIELDS="id"/>
+            </KEYS>
+
+        </TABLE>
+
+        <TABLE NAME="local_inveniordm_logs"
+               COMMENT="Activity logs for analytics">
+            <FIELDS>
+                <FIELD NAME="id"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="true"/>
+                <FIELD NAME="userid"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="action"
+                       TYPE="char"
+                       LENGTH="100"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+                <FIELD NAME="resourceid"
+                       TYPE="char"
+                       LENGTH="100"
+                       NOTNULL="false"
+                       SEQUENCE="false"/>
+                <FIELD NAME="courseid"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="false"
+                       SEQUENCE="false"/>
+                <FIELD NAME="timecreated"
+                       TYPE="int"
+                       LENGTH="10"
+                       NOTNULL="true"
+                       SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary"
+                     TYPE="primary"
+                     FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+    </TABLES>
+
+</XMLDB>

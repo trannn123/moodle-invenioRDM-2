@@ -1,0 +1,275 @@
+{
+    "hits": {
+        "hits": [
+            {
+                "id": "record-001",
+                "metadata": {
+                    "identifier": "record-001",
+                    "title": "Machine Learning Basics",
+                    "description": "Introduction to machine learning concepts and algorithms.",
+                    "free_keyword": [
+                        "AI",
+                        "Machine Learning",
+                        "Neural Network"
+                    ],
+                    "language": "en",
+                    "documentary_type": "text",
+                    "format": "pdf",
+                    "location": "\/repository\/ml-basics.pdf",
+                    "learning_resource_type": "lesson",
+                    "target_audience": "learner",
+                    "educational_level": "bachelor",
+                    "induced_activity": "self-study",
+                    "copyright": "yes",
+                    "objective": "discipline",
+                    "taxon_entry": "Artificial Intelligence",
+                    "role": "author",
+                    "entity": "Nguyen Van A",
+                    "date": "2026-05-24",
+                    "relation": "Original work",
+                    "publication_date": "2026-05-24",
+                    "publisher": "Can Tho University",
+                    "resource_type": {
+                        "title": {
+                            "en": "Lesson"
+                        }
+                    },
+                    "creators": [
+                        {
+                            "person_or_org": {
+                                "name": "Nguyen Van A"
+                            }
+                        }
+                    ],
+                    "subjects": [
+                        {
+                            "subject": "Artificial Intelligence"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "record-002",
+                "metadata": {
+                    "identifier": "record-002",
+                    "title": "Computer Network Laboratory",
+                    "description": "Practical Cisco networking laboratory exercises.",
+                    "free_keyword": [
+                        "Cisco",
+                        "Networking",
+                        "Routing"
+                    ],
+                    "language": "en",
+                    "documentary_type": "video",
+                    "format": "mp4",
+                    "location": "\/repository\/network-lab.mp4",
+                    "learning_resource_type": "tutorial",
+                    "target_audience": "learner",
+                    "educational_level": "bachelor",
+                    "induced_activity": "practice",
+                    "copyright": "yes",
+                    "objective": "discipline",
+                    "taxon_entry": "Computer Networking",
+                    "role": "author",
+                    "entity": "Tran Van B",
+                    "date": "2026-05-24",
+                    "relation": "Derived from record-001",
+                    "publication_date": "2026-05-24",
+                    "publisher": "Can Tho University",
+                    "resource_type": {
+                        "title": {
+                            "en": "Tutorial"
+                        }
+                    },
+                    "creators": [
+                        {
+                            "person_or_org": {
+                                "name": "Tran Van B"
+                            }
+                        }
+                    ],
+                    "subjects": [
+                        {
+                            "subject": "Computer Networking"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "record-6a13d094a3065",
+                "metadata": {
+                    "identifier": "record-6a13d094a3065",
+                    "title": "h",
+                    "description": "h",
+                    "free_keyword": [
+                        "h"
+                    ],
+                    "language": "en",
+                    "documentary_type": "text",
+                    "format": "pdf",
+                    "location": "\/local\/inveniordm\/repository\/1779683476_CaiDatInvenioRDM.docx",
+                    "learning_resource_type": "lesson",
+                    "target_audience": "learner",
+                    "educational_level": "bachelor",
+                    "copyright": "yes",
+                    "objective": "discipline",
+                    "taxon_entry": "Artificial Intelligence",
+                    "role": "author",
+                    "entity": "Admin User",
+                    "date": "2026-05-25",
+                    "relation": "h"
+                }
+            },
+            {
+                "id": "record-6a13eda7aa7e0",
+                "metadata": {
+                    "identifier": "record-6a13eda7aa7e0",
+                    "title": "j",
+                    "description": "j",
+                    "free_keyword": [
+                        "j"
+                    ],
+                    "language": "en",
+                    "documentary_type": "text",
+                    "format": "pdf",
+                    "location": "\/local\/inveniordm\/repository\/1779690919_SoDoHeThong.docx",
+                    "learning_resource_type": "lesson",
+                    "target_audience": "learner",
+                    "educational_level": "bachelor",
+                    "copyright": "yes",
+                    "objective": "discipline",
+                    "taxon_entry": "Artificial Intelligence",
+                    "role": "author",
+                    "entity": "Admin User",
+                    "date": "2026-05-25",
+                    "relation": "j"
+                }
+            },
+            {
+                "id": "record-6a13eecaf1f18",
+                "metadata": {
+                    "identifier": "record-6a13eecaf1f18",
+                    "title": "q",
+                    "description": "q",
+                    "free_keyword": [
+                        "q"
+                    ],
+                    "language": "en",
+                    "documentary_type": "text",
+                    "format": "pdf",
+                    "location": "\/local\/inveniordm\/repository\/1779691210_CSDLMau.png",
+                    "learning_resource_type": "lesson",
+                    "target_audience": "learner",
+                    "educational_level": "bachelor",
+                    "copyright": "yes",
+                    "objective": "discipline",
+                    "taxon_entry": "Artificial Intelligence",
+                    "role": "author",
+                    "entity": "Admin User",
+                    "date": "2026-05-25",
+                    "relation": "q"
+                }
+            },
+            {
+                "id": "record-6a13efc407b93",
+                "metadata": {
+                    "identifier": "record-6a13efc407b93",
+                    "title": "ư",
+                    "description": "ư",
+                    "free_keyword": [
+                        "ư"
+                    ],
+                    "language": "en",
+                    "documentary_type": "text",
+                    "format": "pdf",
+                    "location": "\/local\/inveniordm\/repository\/1779691460_CSDLMau.png",
+                    "learning_resource_type": "lesson",
+                    "target_audience": "learner",
+                    "educational_level": "bachelor",
+                    "copyright": "yes",
+                    "objective": "discipline",
+                    "taxon_entry": "Artificial Intelligence",
+                    "role": "author",
+                    "entity": "Admin User",
+                    "date": "2026-05-25",
+                    "relation": "ư"
+                }
+            },
+            {
+                "id": "record-6a13f036a8f14",
+                "metadata": {
+                    "identifier": "record-6a13f036a8f14",
+                    "title": "q",
+                    "description": "q",
+                    "free_keyword": [
+                        "q"
+                    ],
+                    "language": "en",
+                    "documentary_type": "text",
+                    "format": "pdf",
+                    "location": "\/local\/inveniordm\/repository\/1779691574_CaiDatInvenioRDM.docx",
+                    "learning_resource_type": "lesson",
+                    "target_audience": "learner",
+                    "educational_level": "bachelor",
+                    "copyright": "yes",
+                    "objective": "discipline",
+                    "taxon_entry": "Artificial Intelligence",
+                    "role": "author",
+                    "entity": "Admin User",
+                    "date": "2026-05-25",
+                    "relation": "q"
+                }
+            },
+            {
+                "id": "record-6a13f0ca95a6b",
+                "metadata": {
+                    "identifier": "record-6a13f0ca95a6b",
+                    "title": "r",
+                    "description": "r",
+                    "free_keyword": [
+                        "r"
+                    ],
+                    "language": "en",
+                    "documentary_type": "text",
+                    "format": "pdf",
+                    "location": "\/local\/inveniordm\/repository\/1779691722_ChuanBiMoiTruongChoMoodle.docx",
+                    "learning_resource_type": "lesson",
+                    "target_audience": "learner",
+                    "educational_level": "bachelor",
+                    "copyright": "yes",
+                    "objective": "discipline",
+                    "taxon_entry": "Artificial Intelligence",
+                    "role": "author",
+                    "entity": "Admin User",
+                    "date": "2026-05-25",
+                    "relation": "r"
+                }
+            },
+            {
+                "id": "record-6a13f1275bc6c",
+                "metadata": {
+                    "identifier": "record-6a13f1275bc6c",
+                    "title": "t",
+                    "description": "t",
+                    "free_keyword": [
+                        "t"
+                    ],
+                    "language": "en",
+                    "documentary_type": "text",
+                    "format": "pdf",
+                    "location": "\/local\/inveniordm\/repository\/1779691815_DichTaiLieuMetadata.docx",
+                    "learning_resource_type": "lesson",
+                    "target_audience": "learner",
+                    "educational_level": "bachelor",
+                    "copyright": "yes",
+                    "objective": "discipline",
+                    "taxon_entry": "Artificial Intelligence",
+                    "role": "author",
+                    "entity": "Admin User",
+                    "date": "2026-05-25",
+                    "relation": "t"
+                }
+            }
+        ]
+    }
+}

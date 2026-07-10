@@ -1,0 +1,60 @@
+<?php
+
+namespace local_inveniordm\controller;
+defined('MOODLE_INTERNAL') || die();
+
+use context_system;
+use moodle_url;
+
+class dashboard_controller
+{
+    public function index()
+    {
+        global $PAGE, $CFG, $OUTPUT, $DB;
+        require_login();
+        $context = context_system::instance();
+
+        $PAGE->set_url(new moodle_url('/local/inveniordm/index.php'));
+        $PAGE->set_context($context);
+        $PAGE->requires->css(
+            new moodle_url(
+                '/local/inveniordm/styles/main.css'
+            )
+        );
+        $PAGE->requires->css(
+            new moodle_url(
+                '/local/inveniordm/styles/dashboard.css'
+            )
+        );
+
+        $role = 'student';
+
+        if (is_siteadmin()) {
+            $role = 'admin';
+
+        } else if (has_capability('local/inveniordm:upload', $context)) {
+            $role = 'lecturer';
+        }
+
+        $resourcecount = $DB->count_records('local_inveniordm_course_resources');
+        $coursecount = $DB->count_records('course');
+        $assignmentcount = $DB->count_records('local_inveniordm_assignments');
+        $submissioncount = $DB->count_records('local_inveniordm_submissions');
+
+        $data = [
+            'resourcecount' => $resourcecount,
+            'coursecount' => $coursecount,
+            'assignmentcount' => $assignmentcount,
+            'submissioncount' => $submissioncount,
+            'role' => $role,
+            'is_student' => ($role === 'student'),
+            'is_lecturer' => ($role === 'lecturer'),
+            'is_admin' => ($role === 'admin'),
+            'wwwroot' => $CFG->wwwroot,
+            'cancreatecourse' => has_capability('local/inveniordm:createcourse', $context)
+        ];
+        echo $OUTPUT->header();
+        echo $OUTPUT->render_from_template('local_inveniordm/resource/dashboard', $data);
+        echo $OUTPUT->footer();
+    }
+}

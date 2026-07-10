@@ -1,0 +1,133 @@
+<div class="container">
+    <div class="page-hero">
+        <div class="page-hero-content">
+            <h1>
+                <i class="fa fa-book"></i>
+                Create Course
+            </h1>
+            <p>Create a new course and publish learning resources for students.</p>
+        </div>
+        <div class="hero-actions">
+            <a href="{{backurl}}" class="btn btn-outline-secondary">
+                <i class="fa fa-arrow-left"></i>
+                Back
+            </a>
+        </div>
+    </div>
+
+    <a href="{{wwwroot}}/local/inveniordm/lecturer/my_courses.php" class="my_course-button btn btn-primary">
+        My Courses
+    </a>
+    {{#error}}
+    <div class="alert alert-danger">
+        {{error}}
+    </div>
+    {{/error}}
+    {{#success}}
+    <div class="alert alert-success">
+        {{success}}
+    </div>
+    {{/success}}
+    <form method="post" class="create-course-form">
+        <div class="create-course-card">
+            <div class="create-course-card-header">
+                <h2>General Information</h2>
+            </div>
+            <div class="create-course-card-body">
+                <div class="create-course-form-group">
+                    <label>
+                        Course Full Name
+                        <span class="required">*</span>
+                    </label>
+                    <input type="text" name="fullname" class="form-control" value="{{fullname}}" required>
+                </div>
+
+                <div class="create-course-form-group">
+                    <label>
+                        Short Name
+                        <span class="required">*</span>
+                    </label>
+                    <input type="text" name="shortname" class="form-control" placeholder="Example: CNT101" value="{{shortname}}" required>
+                </div>
+
+                <div class="create-course-form-group">
+                    <label>Category</label>
+                    <select name="categoryid" class="form-control">
+                        <option value="">Select category</option>
+                        {{#categories}}
+                        <option value="{{id}}" {{#selected}}selected{{/selected}}>
+                            {{name}}
+                        </option>
+                        {{/categories}}
+                    </select>
+                </div>
+
+                <div class="create-course-form-group">
+                    <label>Course Summary</label>
+                    <textarea name="summary" class="form-control" rows="6" placeholder="Describe this course...">{{summary}}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="create-course-card">
+            <div class="create-course-card-header">
+                <h2>Course Settings</h2>
+            </div>
+            <div class="create-course-card-body">
+                <div class="create-course-form-row">
+                    <div class="create-course-form-group">
+                        <label>Start Date</label>
+                        <input type="date" name="startdate" class="form-control" value="{{startdate}}">
+                    </div>
+                    <div class="create-course-form-group">
+                        <label>End Date</label>
+                        <input type="date" name="enddate" class="form-control" value="{{enddate}}">
+                    </div>
+                </div>
+
+                <div class="create-course-form-row">
+                    <div class="create-course-form-group">
+                        <label>Course Format</label>
+                        <select name="format" class="form-control">
+                            <option value="topics" {{#istopics}}selected{{/istopics}}>
+                                Topics format
+                            </option>
+                            <option value="weeks" {{#isweeks}}selected{{/isweeks}}>
+                                Weekly format
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="create-course-form-group">
+                        <label>Number of Sections</label>
+                        <input type="number" name="numsections" class="form-control" min="1" value="{{numsections}}">
+                    </div>
+                </div>
+
+                <div class="create-course-form-group">
+                    <label>Course Visibility</label>
+                    <select name="visible" class="form-control">
+                        <option value="1" {{#isshown}}selected{{/isshown}}>
+                            Show
+                        </option>
+
+                        <option value="0" {{#ishidden}}selected{{/ishidden}}>
+                            Hide
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="create-course-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-plus-circle"></i>
+                Create Course
+            </button>
+            <a href="{{backurl}}" class="btn btn-outline-secondary">
+                Cancel
+            </a>
+        </div>
+    </form>
+
+</div>

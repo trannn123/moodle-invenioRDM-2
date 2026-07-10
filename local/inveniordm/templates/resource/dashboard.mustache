@@ -1,0 +1,224 @@
+<div class="invenio-dashboard">
+    <div class="page-hero">
+        <h1>Learning Resource Management System</h1>
+        <p>
+            A digital repository integrated with Moodle and InvenioRDM for managing,
+            sharing, and accessing learning resources across courses.
+        </p>
+    </div>
+
+    {{#is_student}}
+    <div class="row g-4">
+        <div class="col-md-6 mb-4">
+            <div class="dashboard-card">
+                <div class="card-icon"><i class="fa fa-book"></i></div>
+                <h3>Browse Courses</h3>
+                <p>Explore all available courses and view their learning materials.</p>
+                <a class="btn btn-primary" href="{{wwwroot}}/local/inveniordm/student/all_courses.php">Browse Courses</a>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="dashboard-card">
+                <div class="card-icon"><i class="fa fa-tasks"></i></div>
+                <h3>Assignments</h3>
+                <p>View assignment details, track deadlines, and submit your work.</p>
+                <a class="btn btn-primary" href="{{wwwroot}}/local/inveniordm/student/all_assignments.php">View Assignments</a>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="dashboard-card">
+                <div class="card-icon"><i class="fa fa-graduation-cap"></i></div>
+                <h3>My Courses</h3>
+                <p>Access courses you are enrolled in and their attached resources.</p>
+                <a class="btn btn-primary" href="{{wwwroot}}/local/inveniordm/student/my_courses.php">Open My Courses</a>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="dashboard-card">
+                <div class="card-icon"><i class="fa fa-search"></i></div>
+                <h3>Search Repository</h3>
+                <p>Search learning resources stored in InvenioRDM.</p>
+                <a class="btn btn-primary" href="{{wwwroot}}/local/inveniordm/resource/search.php">Search Resources</a>
+            </div>
+        </div>
+    </div>
+    {{/is_student}}
+
+    {{#is_lecturer}}
+    <div class="row g-4">
+        {{#cancreatecourse}}
+        <div class="col-md-6 mb-4 col-xl-3">
+            <div class="dashboard-card">
+                <div class="card-icon"><i class="fa fa-plus-circle"></i></div>
+                <h3>Create Course</h3>
+                <p>Create a new Moodle course and prepare learning activities.</p>
+                <a class="btn btn-primary" href="{{wwwroot}}/local/inveniordm/lecturer/create_course.php">Create Course</a>
+            </div>
+        </div>
+        {{/cancreatecourse}}
+        <div class="col-md-6 mb-4 col-xl-3">
+            <div class="dashboard-card">
+                <div class="card-icon"><i class="fa fa-book"></i></div>
+                <h3>My Courses</h3>
+                <p>Manage your courses, resources, and learning activities.</p>
+                <a class="btn btn-primary" href="{{wwwroot}}/local/inveniordm/lecturer/my_courses.php">Manage Courses</a>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4 col-xl-3">
+            <div class="dashboard-card">
+                <div class="card-icon">
+                    <i class="fa fa-tasks"></i>
+                </div>
+                <h3>Assignments</h3>
+                <p>Create assignments, manage deadlines, and review student submissions.</p>
+                <a class="btn btn-primary" href="{{wwwroot}}/local/inveniordm/lecturer/all_assignments.php">Manage Assignments</a>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4 col-xl-3">
+            <div class="dashboard-card">
+                <div class="card-icon"><i class="fa fa-upload"></i></div>
+                <h3>Upload Resource</h3>
+                <p>Upload learning materials and publish them to InvenioRDM.</p>
+                <a class="btn btn-primary" href="{{wwwroot}}/local/inveniordm/lecturer/upload.php">Upload Resource</a>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4 col-xl-3">
+            <div class="dashboard-card">
+                <div class="card-icon"><i class="fa fa-folder-open"></i></div>
+                <h3>My Resources</h3>
+                <p>View, update, and manage resources you have published.</p>
+                <a class="btn btn-primary" href="{{wwwroot}}/local/inveniordm/lecturer/my_resources.php">Manage Resources</a>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4 col-xl-3">
+            <div class="dashboard-card">
+                <div class="card-icon"><i class="fa fa-search"></i></div>
+                <h3>Search Repository</h3>
+                <p>Search and view learning resources stored in the InvenioRDM repository.</p>
+                <a class="btn btn-primary" href="{{wwwroot}}/local/inveniordm/resource/search.php">Search Resources</a>
+            </div>
+        </div>
+    </div>
+    {{/is_lecturer}}
+
+    {{#is_admin}}
+    <div class="admin-dashboard">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fa fa-folder-open"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">{{resourcecount}}</div>
+                    <div class="stat-label">Resources</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fa fa-book"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">{{coursecount}}</div>
+                    <div class="stat-label">Courses</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fa fa-tasks"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">{{assignmentcount}}</div>
+                    <div class="stat-label">Assignments</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fa fa-upload"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">{{submissioncount}}</div>
+                    <div class="stat-label">Submissions</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-3">
+            <div class="col-md-6 mb-4">
+                <div class="admin-module-card h-100">
+                    <div class="module-header">
+                        <i class="fa fa-chart-line"></i>
+                        <h3>Analytics Dashboard</h3>
+                    </div>
+                    <p class="module-description">
+                        Analyze repository usage, user activities, and learning resource statistics.
+                    </p>
+                    <div class="module-actions">
+                        <a href="{{wwwroot}}/local/inveniordm/admin/analytics.php"
+                           class="module-link">
+                            <i class="fa fa-chart-bar"></i>
+                            Open Analytics
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="admin-module-card h-100">
+                    <div class="module-header">
+                        <i class="fa fa-heartbeat"></i>
+                        <h3>System Monitoring</h3>
+                    </div>
+                    <p class="module-description">
+                        Monitor Moodle services, database connectivity, cache, and InvenioRDM integration.
+                    </p>
+                    <div class="module-actions">
+                        <a href="{{wwwroot}}/local/inveniordm/admin/monitoring.php"
+                           class="module-link">
+                            <i class="fa fa-desktop"></i>
+                            Open Monitoring
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="admin-module-card h-100">
+                    <div class="module-header">
+                        <i class="fa fa-folder-open"></i>
+                        <h3>Resource Repository</h3>
+                    </div>
+                    <p class="module-description">
+                        Browse and search all learning resources stored in the repository.
+                    </p>
+                    <div class="module-actions">
+                        <a href="{{wwwroot}}/local/inveniordm/admin/repository.php"
+                           class="module-link">
+                            <i class="fa fa-search"></i>
+                            Open Repository
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="admin-module-card h-100">
+                    <div class="module-header">
+                        <i class="fa fa-file-text-o"></i>
+                        <h3>System Logs</h3>
+                    </div>
+                    <p class="module-description">
+                        View system activity logs, repository operations, user actions, and error events.
+                    </p>
+                    <div class="module-actions">
+                        <a href="{{wwwroot}}/local/inveniordm/admin/logs.php"
+                           class="module-link">
+                            <i class="fa fa-list-alt"></i>
+                            View Logs
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/is_admin}}
+</div>
