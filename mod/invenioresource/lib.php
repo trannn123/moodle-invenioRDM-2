@@ -17,3 +17,52 @@ function invenioresource_supports($feature)
             return null;
     }
 }
+
+/**
+ * Add a new Invenio Resource instance.
+ */
+function invenioresource_add_instance($data)
+{
+    global $DB;
+
+    error_log(print_r($data, true));
+    
+    $data->timecreated = time();
+    $data->timemodified = time();
+
+    return $DB->insert_record(
+        'invenioresource',
+        $data
+    );
+}
+
+
+/**
+ * Update an existing Invenio Resource instance.
+ */
+function invenioresource_update_instance($data)
+{
+    global $DB;
+
+    $data->timemodified = time();
+    $data->id = $data->instance;
+
+    return $DB->update_record(
+        'invenioresource',
+        $data
+    );
+}
+
+
+/**
+ * Delete an Invenio Resource instance.
+ */
+function invenioresource_delete_instance($id)
+{
+    global $DB;
+
+    return $DB->delete_records(
+        'invenioresource',
+        ['id' => $id]
+    );
+}
