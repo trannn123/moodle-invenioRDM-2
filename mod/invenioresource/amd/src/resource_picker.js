@@ -60,11 +60,7 @@ define([
                 'invenio-search-result'
             );
 
-            alert('Search listener attached');
-
             searchButton.addEventListener('click', async () => {
-
-                alert('Search clicked');
 
                 const keyword = searchInput.value.trim();
 
@@ -123,6 +119,17 @@ define([
                             document.querySelector(
                                 '[name="recordid"]'
                             ).value = recordId;
+
+
+                            const selectedName =
+                                document.querySelector(
+                                    '#selected-resource-name'
+                                );
+
+                            if (selectedName) {
+                                selectedName.textContent = title;
+                            }
+
 
                             modal.hide();
 

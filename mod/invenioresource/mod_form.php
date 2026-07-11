@@ -13,7 +13,7 @@ class mod_invenioresource_mod_form extends moodleform_mod
     {
         $mform = $this->_form;
 
-        global $PAGE;
+        global $PAGE, $OUTPUT, $CFG;
 
         $PAGE->requires->js_call_amd(
             'mod_invenioresource/resource_picker',
@@ -34,11 +34,56 @@ class mod_invenioresource_mod_form extends moodleform_mod
             PARAM_TEXT
         );
 
+        $selectedtitle = 'No resource selected';
+
+        if (!empty($this->_instance)) {
+
+            global $DB;
+
+            $record = $DB->get_record(
+                'invenioresource',
+                ['id' => $this->_instance]
+            );
+
+            if ($record && !empty($record->recordid)) {
+
+                require_once(
+                    $CFG->dirroot .
+                    '/mod/invenioresource/classes/api/invenio_client.php'
+                );
+
+                $client = new \mod_invenioresource\api\invenio_client();
+
+                $inveniorecord = $client->get_record(
+                    $record->recordid
+                );
+
+                if (!empty($inveniorecord['metadata']['title'])) {
+
+                    $selectedtitle =
+                        $inveniorecord['metadata']['title'];
+
+                }
+            }
+        }
+
         $mform->addElement(
-            'static',
-            'selectedresource',
-            get_string('resource', 'mod_invenioresource'),
-            get_string('noresourceselected', 'mod_invenioresource')
+            'html',
+            '
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label class="col-form-label">
+                        Resource
+                    </label>
+                </div>
+        
+                <div class="col-md-9">
+                    <span id="selected-resource-name">'
+            . $selectedtitle .
+            '</span>
+                </div>
+            </div>
+            '
         );
 
         $mform->addElement(
@@ -52,5 +97,31 @@ class mod_invenioresource_mod_form extends moodleform_mod
         $this->standard_coursemodule_elements();
 
         $this->add_action_buttons();
+    }
+
+    public function data_preprocessing(&$defaultvalues)
+    {
+        if (!empty($defaultvalues['recordid'])) {
+
+            global $CFG;
+
+            require_once(
+                $CFG->dirroot .
+                '/mod/invenioresource/classes/api/invenio_client.php'
+            );
+
+            $client = new \mod_invenioresource\api\invenio_client();
+
+            $record = $client->get_record(
+                $defaultvalues['recordid']
+            );
+
+            if (!empty($record['metadata']['title'])) {
+
+                $defaultvalues['selectedresource'] =
+                    $record['metadata']['title'];
+
+            }
+        }
     }
 }
