@@ -14,6 +14,43 @@ define([
             return;
         }
 
+        const clearButton = document.querySelector(
+            '[name="clearresource"]'
+        );
+
+        if (clearButton) {
+
+            clearButton.addEventListener(
+                'click',
+                (e) => {
+
+                    e.preventDefault();
+
+                    const recordField =
+                        document.querySelector(
+                            '[name="recordid"]'
+                        );
+
+                    if (recordField) {
+                        recordField.value = '';
+                    }
+
+
+                    const selectedName =
+                        document.querySelector(
+                            '#selected-resource-name'
+                        );
+
+                    if (selectedName) {
+                        selectedName.textContent =
+                            'No resource selected';
+                    }
+
+                }
+            );
+
+        }
+
         button.addEventListener('click', async (e) => {
 
             e.preventDefault();

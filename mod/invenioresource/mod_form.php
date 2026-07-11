@@ -92,6 +92,12 @@ class mod_invenioresource_mod_form extends moodleform_mod
             get_string('selectresource', 'mod_invenioresource')
         );
 
+        $mform->addElement(
+            'button',
+            'clearresource',
+            'Clear Resource'
+        );
+
         $this->standard_intro_elements();
 
         $this->standard_coursemodule_elements();
@@ -123,5 +129,19 @@ class mod_invenioresource_mod_form extends moodleform_mod
 
             }
         }
+    }
+
+    public function validation($data, $files)
+    {
+        $errors = parent::validation($data, $files);
+
+        if (empty($data['recordid'])) {
+
+            $errors['selectresource'] =
+                'Please select an Invenio resource.';
+
+        }
+
+        return $errors;
     }
 }
