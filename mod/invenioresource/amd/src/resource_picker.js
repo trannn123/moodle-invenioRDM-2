@@ -77,6 +77,10 @@ define([
                 
                 <hr>
                 
+                <div id="invenio-search-status" class="mb-3">
+                
+                </div>
+                
                 <div id="invenio-search-result">
                 
                 </div>
@@ -101,10 +105,21 @@ define([
 
                 const keyword = searchInput.value.trim();
 
+                const statusBox =
+                    document.getElementById(
+                        'invenio-search-status'
+                    );
+
+                statusBox.textContent = 'Searching...';
+
+                searchButton.disabled = true;
+
                 if (!keyword) {
+                    statusBox.textContent = 'Please enter keyword.';
                     return;
                 }
 
+                statusBox.textContent = 'Searching...';
 
                 const request = Ajax.call([
                     {
@@ -115,26 +130,38 @@ define([
                     }
                 ]);
 
+                try {
 
-                const response = await request[0];
+                    const response = await request[0];
 
+                    statusBox.textContent = '';
 
-                const data = JSON.parse(response);
+                    const data = JSON.parse(response);
 
-                const records = data.hits?.hits ?? [];
+                    const records = data.hits?.hits ?? [];
 
-                resultBox.innerHTML = '';
+                    resultBox.innerHTML = '';
 
-                records.forEach((record) => {
+                    searchButton.disabled = false;
 
-                    const title =
-                        record.metadata?.title ?? record.id;
+                    if (records.length === 0) {
 
-                    const item = document.createElement('div');
+                        resultBox.textContent =
+                            'No resource found.';
 
-                    item.className = 'mb-3';
+                        return;
+                    }
 
-                    item.innerHTML = `
+                    records.forEach((record) => {
+
+                        const title =
+                            record.metadata?.title ?? record.id;
+
+                        const item = document.createElement('div');
+
+                        item.className = 'mb-3';
+
+                        item.innerHTML = `
                         <strong>${title}</strong>
                         <br>
                         <button
@@ -145,41 +172,49 @@ define([
                         </button>
                     `;
 
-                    resultBox.appendChild(item);
+                        resultBox.appendChild(item);
 
-                    item
-                        .querySelector('.select-record')
-                        .addEventListener('click', () => {
+                        item
+                            .querySelector('.select-record')
+                            .addEventListener('click', () => {
 
-                            const recordId = record.id;
+                                const recordId = record.id;
 
-                            document.querySelector(
-                                '[name="recordid"]'
-                            ).value = recordId;
-
-
-                            const selectedName =
                                 document.querySelector(
-                                    '#selected-resource-name'
-                                );
-
-                            if (selectedName) {
-                                selectedName.textContent = title;
-                            }
+                                    '[name="recordid"]'
+                                ).value = recordId;
 
 
-                            modal.hide();
+                                const selectedName =
+                                    document.querySelector(
+                                        '#selected-resource-name'
+                                    );
 
-                        });
+                                if (selectedName) {
+                                    selectedName.textContent = title;
+                                }
 
-                });
+
+                                modal.hide();
+
+                            });
+
+                    });
+
+                } catch (error) {
+
+                    statusBox.textContent =
+                        'Search failed.';
+
+                    searchButton.disabled = false;
+
+                }
 
             });
 
         });
 
     };
-
 
     return {
         init: init

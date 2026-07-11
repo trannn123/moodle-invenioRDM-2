@@ -34,7 +34,10 @@ class mod_invenioresource_mod_form extends moodleform_mod
             PARAM_TEXT
         );
 
-        $selectedtitle = 'No resource selected';
+        $selectedtitle = get_string(
+            'noresourceselected',
+            'invenioresource'
+        );
 
         if (!empty($this->_instance)) {
 
@@ -73,7 +76,10 @@ class mod_invenioresource_mod_form extends moodleform_mod
             <div class="form-group row">
                 <div class="col-md-3">
                     <label class="col-form-label">
-                        Resource
+                        ' . get_string(
+                'resource',
+                'invenioresource'
+            ) . '
                     </label>
                 </div>
         
@@ -95,7 +101,10 @@ class mod_invenioresource_mod_form extends moodleform_mod
         $mform->addElement(
             'button',
             'clearresource',
-            'Clear Resource'
+            get_string(
+                'clearresource',
+                'invenioresource'
+            )
         );
 
         $this->standard_intro_elements();
@@ -103,32 +112,6 @@ class mod_invenioresource_mod_form extends moodleform_mod
         $this->standard_coursemodule_elements();
 
         $this->add_action_buttons();
-    }
-
-    public function data_preprocessing(&$defaultvalues)
-    {
-        if (!empty($defaultvalues['recordid'])) {
-
-            global $CFG;
-
-            require_once(
-                $CFG->dirroot .
-                '/mod/invenioresource/classes/api/invenio_client.php'
-            );
-
-            $client = new \mod_invenioresource\api\invenio_client();
-
-            $record = $client->get_record(
-                $defaultvalues['recordid']
-            );
-
-            if (!empty($record['metadata']['title'])) {
-
-                $defaultvalues['selectedresource'] =
-                    $record['metadata']['title'];
-
-            }
-        }
     }
 
     public function validation($data, $files)
@@ -141,7 +124,6 @@ class mod_invenioresource_mod_form extends moodleform_mod
                 'Please select an Invenio resource.';
 
         }
-
         return $errors;
     }
 }
