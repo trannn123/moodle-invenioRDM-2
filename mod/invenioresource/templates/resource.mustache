@@ -1,0 +1,44 @@
+<h3>{{title}}</h3>
+
+<p>{{description}}</p>
+
+<p>
+    <strong>Language:</strong>
+    {{language}}
+</p>
+
+{{#downloadurl}}
+<p>
+    <a href="{{downloadurl}}" target="_blank" class="btn btn-primary">
+        Download file
+    </a>
+</p>
+{{/downloadurl}}
+
+<h5>Keywords</h5>
+
+{{#keywords}}
+<span class="badge bg-secondary">
+    {{.}}
+</span>
+{{/keywords}}
+
+<p><strong>Format:</strong> {{format}}</p>
+
+<p><strong>Language:</strong> {{language}}</p>
+
+<p><strong>Document Type:</strong> {{documentarytype}}</p>
+
+<p><strong>Educational Level:</strong> {{educationallevel}}</p>
+
+<p><strong>Learning Resource Type:</strong> {{learningresourcetype}}</p>
+
+<p><strong>Target Audience:</strong> {{targetaudience}}</p>
+
+<p><strong>Objective:</strong> {{objective}}</p>
+
+<p><strong>Taxonomy:</strong> {{taxonentry}}</p>
+
+<p><strong>Author Entity:</strong> {{entity}}</p>
+
+<p><strong>Copyright:</strong> {{copyright}}</p>

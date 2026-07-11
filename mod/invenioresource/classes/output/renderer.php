@@ -8,24 +8,88 @@ class renderer extends \plugin_renderer_base
 {
     public function render_resource(array $record): string
     {
-        $title =
-            $record['metadata']['title']
-            ?? 'Untitled';
+        $metadata = $record['metadata'] ?? [];
+        $customfields = $record['custom_fields'] ?? [];
 
-        $description =
-            $record['metadata']['description']
-            ?? '';
+        $title = $metadata['title'] ?? 'Untitled';
 
-        $language =
-            $record['custom_fields']['moodle:language']
-            ?? 'N/A';
+        $description = $metadata['description'] ?? '';
 
-        return
-            \html_writer::tag('h3', $title) .
-            \html_writer::tag('p', $description) .
-            \html_writer::tag(
-                'p',
-                '<strong>Language:</strong> ' . s($language)
-            );
+        $downloadurl = '';
+
+        if (!empty($record['files']['entries'])) {
+
+            $file = reset($record['files']['entries']);
+
+            $downloadurl = $file['links']['content'] ?? '';
+        }
+
+        $data = [
+
+            // Basic metadata
+            'title' => $title,
+            'description' => $description,
+            'downloadurl' => $downloadurl,
+
+            // LOM custom metadata
+            'language' =>
+                $customfields['moodle:language'] ?? 'N/A',
+
+            'keywords' =>
+                $customfields['moodle:free_keyword'] ?? [],
+
+            'format' =>
+                $customfields['moodle:format'] ?? '',
+
+            'documentarytype' =>
+                $customfields['moodle:documentary_type'] ?? '',
+
+            'learningresourcetype' =>
+                $customfields['moodle:learning_resource_type'] ?? '',
+
+            'targetaudience' =>
+                $customfields['moodle:target_audience'] ?? '',
+
+            'educationallevel' =>
+                $customfields['moodle:educational_level'] ?? '',
+
+            'objective' =>
+                $customfields['moodle:objective'] ?? '',
+
+            'taxonentry' =>
+                $customfields['moodle:taxon_entry'] ?? '',
+
+            'entity' =>
+                $customfields['moodle:entity'] ?? '',
+
+            'copyright' =>
+                $customfields['moodle:copyright'] ?? '',
+
+            'identifier' =>
+                $customfields['moodle:identifier'] ?? '',
+
+            'role' =>
+                $customfields['moodle:role'] ?? '',
+
+            'date' =>
+                $customfields['moodle:date'] ?? '',
+
+            'relation' =>
+                $customfields['moodle:relation'] ?? '',
+
+            'location' =>
+                $customfields['moodle:location'] ?? '',
+
+            'inducedactivity' =>
+                $customfields['moodle:induced_activity'] ?? '',
+
+            'metadataaccessibility' =>
+                $customfields['moodle:metadata_accessibility'] ?? '',
+        ];
+
+        return $this->render_from_template(
+            'mod_invenioresource/resource',
+            $data
+        );
     }
 }
