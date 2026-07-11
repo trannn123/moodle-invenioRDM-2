@@ -13,15 +13,34 @@ class renderer extends \plugin_renderer_base
 
         $title = $metadata['title'] ?? 'Untitled';
 
-        $description = $metadata['description'] ?? '';
+        $description =
+            $metadata['description']
+            ?? 'No description available.';
 
         $downloadurl = '';
+        $filename = '';
+        $filesize = '';
 
         if (!empty($record['files']['entries'])) {
 
             $file = reset($record['files']['entries']);
 
-            $downloadurl = $file['links']['content'] ?? '';
+            $downloadurl =
+                $file['links']['content'] ?? '';
+
+            $filename =
+                $file['key'] ?? '';
+
+            $filesize = '';
+
+            if (!empty($file['size'])) {
+
+                $filesize =
+                    display_size(
+                        $file['size']
+                    );
+
+            }
         }
 
         $data = [
@@ -31,65 +50,122 @@ class renderer extends \plugin_renderer_base
             'description' => $description,
             'downloadurl' => $downloadurl,
 
+            'filename' =>
+                $this->display_value($filename),
+
+            'filesize' =>
+                $this->display_value($filesize),
+
             // LOM custom metadata
             'language' =>
                 $customfields['moodle:language'] ?? 'N/A',
 
             'keywords' =>
-                $customfields['moodle:free_keyword'] ?? [],
+                is_array(
+                    $customfields['moodle:free_keyword'] ?? null
+                )
+                    ? $customfields['moodle:free_keyword']
+                    : [],
 
             'format' =>
-                $customfields['moodle:format'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:format'] ?? null
+                ),
 
             'documentarytype' =>
-                $customfields['moodle:documentary_type'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:documentary_type'] ?? null
+                ),
 
             'learningresourcetype' =>
-                $customfields['moodle:learning_resource_type'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:learning_resource_type'] ?? null
+                ),
 
             'targetaudience' =>
-                $customfields['moodle:target_audience'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:target_audience'] ?? null
+                ),
 
             'educationallevel' =>
-                $customfields['moodle:educational_level'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:educational_level'] ?? null
+                ),
 
             'objective' =>
-                $customfields['moodle:objective'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:objective'] ?? null
+                ),
 
             'taxonentry' =>
-                $customfields['moodle:taxon_entry'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:taxon_entry'] ?? null
+                ),
 
             'entity' =>
-                $customfields['moodle:entity'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:entity'] ?? null
+                ),
 
             'copyright' =>
-                $customfields['moodle:copyright'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:copyright'] ?? null
+                ),
 
             'identifier' =>
-                $customfields['moodle:identifier'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:identifier'] ?? null
+                ),
 
             'role' =>
-                $customfields['moodle:role'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:role'] ?? null
+                ),
 
             'date' =>
-                $customfields['moodle:date'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:date'] ?? null
+                ),
 
             'relation' =>
-                $customfields['moodle:relation'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:relation'] ?? null
+                ),
 
             'location' =>
-                $customfields['moodle:location'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:location'] ?? null
+                ),
 
             'inducedactivity' =>
-                $customfields['moodle:induced_activity'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:induced_activity'] ?? null
+                ),
 
             'metadataaccessibility' =>
-                $customfields['moodle:metadata_accessibility'] ?? '',
+                $this->display_value(
+                    $customfields['moodle:metadata_accessibility'] ?? null
+                ),
         ];
 
         return $this->render_from_template(
             'mod_invenioresource/resource',
             $data
         );
+    }
+
+    private function display_value($value): string
+    {
+        if (is_array($value)) {
+
+            return empty($value)
+                ? 'Not specified'
+                : implode(', ', $value);
+
+        }
+
+        return !empty($value)
+            ? $value
+            : 'Not specified';
     }
 }

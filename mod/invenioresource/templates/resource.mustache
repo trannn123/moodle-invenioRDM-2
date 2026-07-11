@@ -1,44 +1,336 @@
-<h3>{{title}}</h3>
+<div class="card mb-4">
 
-<p>{{description}}</p>
+    <div class="card-body">
 
-<p>
-    <strong>Language:</strong>
-    {{language}}
-</p>
+        <h3 class="card-title">
+            {{title}}
+        </h3>
 
-{{#downloadurl}}
-<p>
-    <a href="{{downloadurl}}" target="_blank" class="btn btn-primary">
-        Download file
-    </a>
-</p>
-{{/downloadurl}}
+        <p class="card-text">
+            {{description}}
+        </p>
 
-<h5>Keywords</h5>
+        {{#downloadurl}}
 
-{{#keywords}}
-<span class="badge bg-secondary">
-    {{.}}
-</span>
-{{/keywords}}
+        <hr>
 
-<p><strong>Format:</strong> {{format}}</p>
+        <h5 class="mb-3">
+            File
+        </h5>
 
-<p><strong>Language:</strong> {{language}}</p>
 
-<p><strong>Document Type:</strong> {{documentarytype}}</p>
+        <div class="card bg-light mb-3">
 
-<p><strong>Educational Level:</strong> {{educationallevel}}</p>
+            <div class="card-body">
 
-<p><strong>Learning Resource Type:</strong> {{learningresourcetype}}</p>
+                <p class="mb-2">
 
-<p><strong>Target Audience:</strong> {{targetaudience}}</p>
+                    <strong>
+                        File name:
+                    </strong>
 
-<p><strong>Objective:</strong> {{objective}}</p>
+                    {{filename}}
 
-<p><strong>Taxonomy:</strong> {{taxonentry}}</p>
+                </p>
 
-<p><strong>Author Entity:</strong> {{entity}}</p>
 
-<p><strong>Copyright:</strong> {{copyright}}</p>
+                <p class="mb-3">
+
+                    <strong>
+                        Size:
+                    </strong>
+
+                    {{filesize}}
+
+                </p>
+
+
+                <a href="{{downloadurl}}"
+                   target="_blank"
+                   class="btn btn-primary">
+
+                    Download file
+
+                </a>
+
+            </div>
+
+        </div>
+
+        {{/downloadurl}}
+
+        <hr>
+
+        <h5 class="mb-3">
+            Resource Information
+        </h5>
+
+        <table class="table table-bordered">
+
+            <tbody>
+
+                <tr>
+                    <th>
+                        Language
+                    </th>
+
+                    <td>
+                        {{language}}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>
+                        Format
+                    </th>
+
+                    <td>
+                        {{format}}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>
+                        Document Type
+                    </th>
+
+                    <td>
+                        {{documentarytype}}
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+        <hr>
+
+
+        <h5 class="mb-3">
+            Educational Information
+        </h5>
+
+        <table class="table table-bordered">
+
+            <tbody>
+
+                <tr>
+                    <th>
+                        Educational Level
+                    </th>
+
+                    <td>
+                        {{educationallevel}}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>
+                        Learning Resource Type
+                    </th>
+
+                    <td>
+                        {{learningresourcetype}}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>
+                        Target Audience
+                    </th>
+
+                    <td>
+                        {{targetaudience}}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>
+                        Objective
+                    </th>
+
+                    <td>
+                        {{objective}}
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+        <hr>
+
+
+        <h5 class="mb-3">
+            Additional Information
+        </h5>
+
+        <table class="table table-bordered">
+
+            <tbody>
+
+                <tr>
+                    <th>
+                        Taxonomy
+                    </th>
+
+                    <td>
+                        {{taxonentry}}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>
+                        Author Entity
+                    </th>
+
+                    <td>
+                        {{entity}}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>
+                        Copyright
+                    </th>
+
+                    <td>
+                        {{copyright}}
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+        <hr>
+
+        <h5 class="mb-3">
+            Keywords
+        </h5>
+
+
+        {{#keywords}}
+
+            <span class="badge bg-primary me-1 mb-1">
+                {{.}}
+            </span>
+
+        {{/keywords}}
+
+
+        {{^keywords}}
+
+            <p class="text-muted">
+                No keywords available.
+            </p>
+
+        {{/keywords}}
+
+        <hr>
+
+        <h5 class="mb-3">
+
+            <button
+                class="btn btn-link p-0"
+                type="button"
+                data-toggle="technical-metadata">
+
+                Technical Metadata
+
+            </button>
+
+        </h5>
+
+
+        <div id="technical-metadata"
+             style="display:none;">
+
+
+        <table class="table table-bordered">
+
+            <tbody>
+
+                <tr>
+                    <th>
+                        Identifier
+                    </th>
+
+                    <td>
+                        {{identifier}}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>
+                        Date
+                    </th>
+
+                    <td>
+                        {{date}}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>
+                        Relation
+                    </th>
+
+                    <td>
+                        {{relation}}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>
+                        Location
+                    </th>
+
+                    <td>
+                        {{location}}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>
+                        Role
+                    </th>
+
+                    <td>
+                        {{role}}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>
+                        Metadata Accessibility
+                    </th>
+
+                    <td>
+                        {{metadataaccessibility}}
+                    </td>
+                </tr>
+
+
+            </tbody>
+
+        </table>
+        </div>
+    </div>
+
+</div>
