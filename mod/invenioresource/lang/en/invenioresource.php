@@ -1,0 +1,7 @@
+<?php
+
+defined('MOODLE_INTERNAL') || die();
+
+$string['pluginname'] = 'Invenio Resource';
+$string['modulenameplural'] = 'Invenio Resources';
+$string['modulename'] = 'Invenio Resource';
