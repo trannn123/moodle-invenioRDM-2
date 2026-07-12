@@ -49,15 +49,14 @@ if ($record) {
         'button',
         'View Resource Detail',
         [
-            'class' => 'btn btn-primary',
+            'class' => 'btn btn-primary mt-3 mb-3',
             'id' => 'view-resource-detail'
         ]
     );
 
-
     $renderer = $PAGE->get_renderer('mod_invenioresource');
 
-    echo $renderer->render_resource_modal($record);
+    echo $renderer->render_resource($record);
 
 } else {
 

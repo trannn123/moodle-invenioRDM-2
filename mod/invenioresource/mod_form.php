@@ -20,6 +20,11 @@ class mod_invenioresource_mod_form extends moodleform_mod
             'init'
         );
 
+        $PAGE->requires->js_call_amd(
+            'mod_invenioresource/metadata_collapse',
+            'init'
+        );
+
         $mform->addElement('text', 'name', get_string('name'));
         $mform->setType('name', PARAM_TEXT);
 
@@ -96,52 +101,6 @@ class mod_invenioresource_mod_form extends moodleform_mod
             'button',
             'selectresource',
             get_string('selectresource', 'mod_invenioresource')
-        );
-
-        $mform->addElement(
-            'html',
-            '
-            <div id="resource-preview-modal"
-                 class="modal fade"
-                 tabindex="-1"
-                 role="dialog"
-                 style="display:none;">
-        
-                <div class="modal-dialog modal-lg modal-dialog-scrollable"
-                     role="document">
-        
-                    <div class="modal-content">
-        
-                        <div class="modal-header">
-        
-                            <h5 class="modal-title">
-                                Invenio Resource Preview
-                            </h5>
-        
-                            <button type="button"
-                                    class="close"
-                                    id="close-resource-preview">
-        
-                                <span>
-                                    &times;
-                                </span>
-        
-                            </button>
-        
-                        </div>
-        
-        
-                        <div class="modal-body"
-                             id="resource-preview-content">
-        
-                        </div>
-        
-                    </div>
-        
-                </div>
-        
-            </div>
-            '
         );
 
         $mform->addElement(

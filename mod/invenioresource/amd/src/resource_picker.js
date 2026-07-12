@@ -18,51 +18,6 @@ define([
             '[name="clearresource"]'
         );
 
-        const closeButton =
-            document.querySelector(
-                '#close-resource-preview'
-            );
-
-
-        if (closeButton) {
-
-            closeButton.addEventListener(
-                'click',
-                () => {
-
-                    const previewModal =
-                        document.querySelector(
-                            '#resource-preview-modal'
-                        );
-
-
-                    if (!previewModal) {
-                        return;
-                    }
-
-
-                    previewModal.style.display = 'none';
-
-                    previewModal.classList.remove('show');
-
-                    document.body.classList.remove('modal-open');
-
-
-                    const backdrop =
-                        document.querySelector(
-                            '#resource-preview-backdrop'
-                        );
-
-
-                    if (backdrop) {
-                        backdrop.remove();
-                    }
-
-                }
-            );
-
-        }
-
         if (clearButton) {
 
             clearButton.addEventListener(
@@ -228,68 +183,27 @@ define([
 
                         item
                             .querySelector('.detail-record')
-                            .addEventListener('click', () => {
+                            .addEventListener('click', async () => {
 
-                                const previewModal =
-                                    document.querySelector(
-                                        '#resource-preview-modal'
-                                    );
+                                const request = Ajax.call([
+                                    {
+                                        methodname:
+                                            'mod_invenioresource_get_resource_detail',
+                                        args: {
+                                            recordid: record.id
+                                        }
+                                    }
+                                ]);
 
-                                const content =
-                                    document.querySelector(
-                                        '#resource-preview-content'
-                                    );
+                                const html = await request[0];
 
+                                const previewModal = await ModalFactory.create({
+                                    type: ModalFactory.types.DEFAULT,
+                                    title: 'Resource Detail',
+                                    body: html
+                                });
 
-                                if (!previewModal || !content) {
-                                    return;
-                                }
-
-
-                                const metadata =
-                                    record.metadata ?? {};
-
-
-                                content.innerHTML = `
-
-                                    <h4>
-                                        ${metadata.title ?? 'Untitled'}
-                                    </h4>
-                        
-                                    <hr>
-                        
-                                    <p>
-                                        <strong>Description:</strong>
-                                        <br>
-                                        ${
-                                    metadata.description
-                                    ?? 'No description'
-                                }
-                                    </p>
-                        
-                                    <p>
-                                        <strong>Record ID:</strong>
-                                        ${record.id}
-                                    </p>
-                        
-                                `;
-
-                                previewModal.style.display = 'block';
-
-                                previewModal.classList.add('show');
-
-                                previewModal.style.zIndex = '2000';
-
-                                document.body.classList.add('modal-open');
-
-                                const dialog =
-                                    previewModal.querySelector(
-                                        '.modal-dialog'
-                                    );
-
-                                if (dialog) {
-                                    dialog.style.zIndex = '2001';
-                                }
+                                previewModal.show();
 
                             });
 

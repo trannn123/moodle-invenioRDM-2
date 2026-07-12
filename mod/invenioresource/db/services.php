@@ -23,4 +23,22 @@ $functions = [
 
     ],
 
+    'mod_invenioresource_get_resource_detail' => [
+
+        'classname' =>
+            'mod_invenioresource\external\get_resource_detail',
+
+        'methodname' =>
+            'execute',
+
+        'description' =>
+            'Get Invenio resource detail',
+
+        'type' =>
+            'read',
+
+        'ajax' =>
+            true,
+
+    ],
 ];
