@@ -26,7 +26,7 @@ function invenioresource_add_instance($data)
     global $DB;
 
     error_log(print_r($data, true));
-    
+
     $data->timecreated = time();
     $data->timemodified = time();
 
