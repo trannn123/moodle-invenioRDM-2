@@ -31,14 +31,12 @@ $context = context_module::instance($cm->id);
 
 $PAGE->set_url('/mod/invenioresource/view.php', ['id' => $cm->id]);
 $PAGE->set_context($context);
-$PAGE->requires->js_call_amd(
-    'mod_invenioresource/metadata_collapse',
-    'init'
-);
+
 $PAGE->requires->js_call_amd(
     'mod_invenioresource/resource_detail',
     'init'
 );
+
 $PAGE->set_title($instance->name);
 $PAGE->set_heading($course->fullname);
 echo $OUTPUT->header();

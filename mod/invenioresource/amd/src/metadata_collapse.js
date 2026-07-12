@@ -1,12 +1,16 @@
 define([], function () {
 
-    const init = () => {
+    const init = (root) => {
 
-        const button = document.querySelector(
+        root = root || document;
+
+
+        const button = root.querySelector(
             '[data-toggle="technical-metadata"]'
         );
 
-        const content = document.querySelector(
+
+        const content = root.querySelector(
             '#technical-metadata'
         );
 
@@ -18,15 +22,7 @@ define([], function () {
 
         button.addEventListener('click', () => {
 
-            if (content.style.display === 'none') {
-
-                content.style.display = 'block';
-
-            } else {
-
-                content.style.display = 'none';
-
-            }
+            content.classList.toggle('d-none');
 
         });
 

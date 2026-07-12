@@ -55,6 +55,33 @@ define([
 
                 modal.show();
 
+                require([
+                    'mod_invenioresource/metadata_collapse'
+                ], function (MetadataCollapse) {
+
+                    MetadataCollapse.init(
+                        modal.getRoot()[0]
+                    );
+
+                });
+
+
+                modal.getRoot().on(
+                    'hidden.bs.modal',
+                    function () {
+
+                        const content =
+                            document.querySelector(
+                                '#technical-metadata'
+                            );
+
+                        if (content) {
+                            content.style.display = 'none';
+                        }
+
+                    }
+                );
+
             }
         );
 
