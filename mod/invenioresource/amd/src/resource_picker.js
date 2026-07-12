@@ -162,15 +162,22 @@ define([
                         item.className = 'mb-3';
 
                         item.innerHTML = `
-                        <strong>${title}</strong>
-                        <br>
-                        <button
-                            class="btn btn-secondary select-record"
-                            data-id="${record.id}"
-                        >
-                            Select
-                        </button>
-                    `;
+                            <strong>${title}</strong>
+                            <br>
+                            <button
+                                class="btn btn-info detail-record me-2"
+                                data-id="${record.id}"
+                            >
+                                Detail
+                            </button>
+                            
+                            <button
+                                class="btn btn-secondary select-record"
+                                data-id="${record.id}"
+                            >
+                                Select
+                            </button>
+                        `;
 
                         resultBox.appendChild(item);
 

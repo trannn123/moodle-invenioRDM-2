@@ -6,6 +6,18 @@ defined('MOODLE_INTERNAL') || die();
 
 class renderer extends \plugin_renderer_base
 {
+    public function render_resource_modal(array $record): string
+    {
+        $content = $this->render_resource($record);
+
+        return $this->render_from_template(
+            'mod_invenioresource/resource_modal',
+            [
+                'content' => $content
+            ]
+        );
+    }
+
     public function render_resource(array $record): string
     {
         $metadata = $record['metadata'] ?? [];

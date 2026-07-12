@@ -2,6 +2,7 @@
 
 require('../../config.php');
 
+global $DB, $OUTPUT, $CFG, $PAGE;
 $id = required_param('id', PARAM_INT);
 
 $cm = get_coursemodule_from_id('invenioresource', $id, 0, false, MUST_EXIST);
@@ -34,17 +35,29 @@ $PAGE->requires->js_call_amd(
     'mod_invenioresource/metadata_collapse',
     'init'
 );
+$PAGE->requires->js_call_amd(
+    'mod_invenioresource/resource_detail',
+    'init'
+);
 $PAGE->set_title($instance->name);
 $PAGE->set_heading($course->fullname);
 echo $OUTPUT->header();
 
-echo $OUTPUT->heading($instance->name);
-
-$renderer = $PAGE->get_renderer('mod_invenioresource');
-
 if ($record) {
 
-    echo $renderer->render_resource($record);
+    echo html_writer::tag(
+        'button',
+        'View Resource Detail',
+        [
+            'class' => 'btn btn-primary',
+            'id' => 'view-resource-detail'
+        ]
+    );
+
+
+    $renderer = $PAGE->get_renderer('mod_invenioresource');
+
+    echo $renderer->render_resource_modal($record);
 
 } else {
 
@@ -54,5 +67,4 @@ if ($record) {
     );
 
 }
-
 echo $OUTPUT->footer();
