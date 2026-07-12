@@ -89,33 +89,35 @@ define([
 
             modal.show();
 
-            const searchButton = document.getElementById(
-                'invenio-search-btn'
-            );
+            const modalRoot = modal.getRoot();
 
-            const searchInput = document.getElementById(
-                'invenio-search-keyword'
-            );
+            const searchButton =
+                modalRoot.find('#invenio-search-btn')[0];
 
-            const resultBox = document.getElementById(
-                'invenio-search-result'
-            );
+            const searchInput =
+                modalRoot.find('#invenio-search-keyword')[0];
+
+            const resultBox =
+                modalRoot.find('#invenio-search-result')[0];
+
+            const statusBox =
+                modalRoot.find('#invenio-search-status')[0];
 
             searchButton.addEventListener('click', async () => {
 
                 const keyword = searchInput.value.trim();
-
-                const statusBox =
-                    document.getElementById(
-                        'invenio-search-status'
-                    );
 
                 statusBox.textContent = 'Searching...';
 
                 searchButton.disabled = true;
 
                 if (!keyword) {
-                    statusBox.textContent = 'Please enter keyword.';
+
+                    statusBox.textContent =
+                        'Please enter keyword.';
+
+                    searchButton.disabled = false;
+
                     return;
                 }
 
@@ -229,6 +231,10 @@ define([
 
 
                                 modal.hide();
+
+                                setTimeout(() => {
+                                    modal.destroy();
+                                }, 300);
 
                             });
 

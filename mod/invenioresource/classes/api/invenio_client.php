@@ -42,9 +42,25 @@ class invenio_client
 
 
         if (!empty($query)) {
+
+            $words = explode(
+                ' ',
+                trim($query)
+            );
+
+            foreach ($words as &$word) {
+
+                $word .= '*';
+
+            }
+
+            $query = implode(
+                ' ',
+                $words
+            );
+
             $url .= '?q=' . urlencode($query);
         }
-
 
         return $this->request($url);
     }
