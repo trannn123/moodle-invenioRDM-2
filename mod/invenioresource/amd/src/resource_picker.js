@@ -18,6 +18,51 @@ define([
             '[name="clearresource"]'
         );
 
+        const closeButton =
+            document.querySelector(
+                '#close-resource-preview'
+            );
+
+
+        if (closeButton) {
+
+            closeButton.addEventListener(
+                'click',
+                () => {
+
+                    const previewModal =
+                        document.querySelector(
+                            '#resource-preview-modal'
+                        );
+
+
+                    if (!previewModal) {
+                        return;
+                    }
+
+
+                    previewModal.style.display = 'none';
+
+                    previewModal.classList.remove('show');
+
+                    document.body.classList.remove('modal-open');
+
+
+                    const backdrop =
+                        document.querySelector(
+                            '#resource-preview-backdrop'
+                        );
+
+
+                    if (backdrop) {
+                        backdrop.remove();
+                    }
+
+                }
+            );
+
+        }
+
         if (clearButton) {
 
             clearButton.addEventListener(
@@ -180,6 +225,73 @@ define([
                         `;
 
                         resultBox.appendChild(item);
+
+                        item
+                            .querySelector('.detail-record')
+                            .addEventListener('click', () => {
+
+                                const previewModal =
+                                    document.querySelector(
+                                        '#resource-preview-modal'
+                                    );
+
+                                const content =
+                                    document.querySelector(
+                                        '#resource-preview-content'
+                                    );
+
+
+                                if (!previewModal || !content) {
+                                    return;
+                                }
+
+
+                                const metadata =
+                                    record.metadata ?? {};
+
+
+                                content.innerHTML = `
+
+                                    <h4>
+                                        ${metadata.title ?? 'Untitled'}
+                                    </h4>
+                        
+                                    <hr>
+                        
+                                    <p>
+                                        <strong>Description:</strong>
+                                        <br>
+                                        ${
+                                    metadata.description
+                                    ?? 'No description'
+                                }
+                                    </p>
+                        
+                                    <p>
+                                        <strong>Record ID:</strong>
+                                        ${record.id}
+                                    </p>
+                        
+                                `;
+
+                                previewModal.style.display = 'block';
+
+                                previewModal.classList.add('show');
+
+                                previewModal.style.zIndex = '2000';
+
+                                document.body.classList.add('modal-open');
+
+                                const dialog =
+                                    previewModal.querySelector(
+                                        '.modal-dialog'
+                                    );
+
+                                if (dialog) {
+                                    dialog.style.zIndex = '2001';
+                                }
+
+                            });
 
                         item
                             .querySelector('.select-record')
