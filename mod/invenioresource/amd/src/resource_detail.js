@@ -1,4 +1,10 @@
-define([], function () {
+define([
+    'core/ajax',
+    'core/modal_factory'
+], function (
+    Ajax,
+    ModalFactory
+) {
 
     const init = () => {
 
@@ -6,63 +12,51 @@ define([], function () {
             '#view-resource-detail'
         );
 
-        const modal = document.querySelector(
-            '#resource-detail-modal'
-        );
-
-        const closebutton = document.querySelector(
-            '#close-resource-detail'
-        );
-
-
-        if (!button || !modal) {
+        if (!button) {
             return;
         }
 
 
-        const openModal = () => {
-
-            modal.style.display = 'block';
-
-            modal.classList.add('show');
-
-            modal.setAttribute(
-                'aria-hidden',
-                'false'
-            );
-
-        };
-
-
-        const closeModal = () => {
-
-            modal.style.display = 'none';
-
-            modal.classList.remove('show');
-
-            modal.setAttribute(
-                'aria-hidden',
-                'true'
-            );
-
-        };
-
-
         button.addEventListener(
             'click',
-            openModal
+            async () => {
+
+                const recordid =
+                    button.dataset.recordid;
+
+
+                const request = Ajax.call([
+                    {
+                        methodname:
+                            'mod_invenioresource_get_resource_detail',
+
+                        args: {
+                            recordid: recordid
+                        }
+                    }
+                ]);
+
+
+                const html =
+                    await request[0];
+
+
+                const modal =
+                    await ModalFactory.create({
+                        type: ModalFactory.types.DEFAULT,
+
+                        title:
+                            'Resource Detail',
+
+                        body:
+                        html
+                    });
+
+
+                modal.show();
+
+            }
         );
-
-
-        if (closebutton) {
-
-            closebutton.addEventListener(
-                'click',
-                closeModal
-            );
-
-        }
-
 
     };
 

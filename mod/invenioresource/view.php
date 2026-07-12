@@ -50,13 +50,11 @@ if ($record) {
         'View Resource Detail',
         [
             'class' => 'btn btn-primary mt-3 mb-3',
-            'id' => 'view-resource-detail'
+            'id' => 'view-resource-detail',
+            'data-recordid' => $instance->recordid
         ]
     );
 
-    $renderer = $PAGE->get_renderer('mod_invenioresource');
-
-    echo $renderer->render_resource($record);
 
 } else {
 
