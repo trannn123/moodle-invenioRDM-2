@@ -12,12 +12,14 @@ class mod_invenioresource_mod_form extends moodleform_mod
     public function definition()
     {
         $mform = $this->_form;
-
         global $PAGE, $OUTPUT, $CFG;
 
         $PAGE->requires->js_call_amd(
             'mod_invenioresource/resource_picker',
-            'init'
+            'init',
+            [
+                $this->context->instanceid
+            ]
         );
 
         $PAGE->requires->js_call_amd(
@@ -97,20 +99,30 @@ class mod_invenioresource_mod_form extends moodleform_mod
             '
         );
 
-        $mform->addElement(
-            'button',
-            'selectresource',
-            get_string('selectresource', 'mod_invenioresource')
-        );
+        if (has_capability(
+            'mod/invenioresource:selectresource',
+            $this->context
+        )) {
 
-        $mform->addElement(
-            'button',
-            'clearresource',
-            get_string(
+            $mform->addElement(
+                'button',
+                'selectresource',
+                get_string(
+                    'selectresource',
+                    'mod_invenioresource'
+                )
+            );
+
+            $mform->addElement(
+                'button',
                 'clearresource',
-                'invenioresource'
-            )
-        );
+                get_string(
+                    'clearresource',
+                    'invenioresource'
+                )
+            );
+
+        }
 
         $this->standard_intro_elements();
 

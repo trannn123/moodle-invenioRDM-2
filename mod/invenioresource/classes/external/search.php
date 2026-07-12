@@ -6,6 +6,7 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir . '/externallib.php');
 
+use context_course;
 use external_api;
 use external_function_parameters;
 use external_value;
@@ -20,6 +21,19 @@ class search extends external_api
             [
                 'keyword' => $keyword
             ]
+        );
+
+        global $COURSE;
+
+        $context = context_course::instance(
+            $COURSE->id
+        );
+
+        self::validate_context($context);
+
+        require_capability(
+            'mod/invenioresource:selectresource',
+            $context
         );
 
         $service = new search_service();
