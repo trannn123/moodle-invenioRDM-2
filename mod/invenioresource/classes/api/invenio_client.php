@@ -61,7 +61,7 @@ class invenio_client
 
             $url .= '?q=' . urlencode($query);
         }
-        error_log("CALL INVENTIO API");
+        error_log("CALL INVENIO API");
         return $this->request($url);
     }
 
