@@ -68,6 +68,17 @@ define([
                     >
                 </div>
                 
+                <div class="mb-3">
+                    <div class="fw-bold mb-2">
+                        Popular keywords
+                    </div>
+                
+                    <div
+                        id="popular-keywords"
+                        class="d-flex flex-wrap gap-2"
+                    ></div>
+                </div>
+                
                 <button
                     id="invenio-search-btn"
                     class="btn btn-primary"
@@ -102,6 +113,52 @@ define([
 
             const statusBox =
                 modalRoot.find('#invenio-search-status')[0];
+
+            const popularBox =
+                modalRoot.find('#popular-keywords')[0];
+
+            const popularRequest = Ajax.call([
+                {
+                    methodname: 'mod_invenioresource_get_popular_keywords',
+                    args: {}
+                }
+            ]);
+
+            let popularKeywords = [];
+
+            try {
+
+                popularKeywords = await popularRequest[0];
+
+            } catch (error) {
+
+                statusBox.textContent = JSON.stringify(error);
+
+            }
+
+            if (popularBox && popularKeywords.length > 0) {
+
+                popularBox.innerHTML = '';
+
+                popularKeywords.forEach((keyword) => {
+
+                    const button = document.createElement('button');
+
+                    button.className =
+                        'btn btn-sm btn-outline-primary rounded-pill me-2 mb-2';
+
+                    button.textContent = keyword;
+
+                    button.addEventListener('click', () => {
+
+                        searchInput.value = keyword;
+
+                    });
+
+                    popularBox.appendChild(button);
+                });
+
+            }
 
             searchButton.addEventListener('click', async () => {
 
@@ -243,7 +300,7 @@ define([
                 } catch (error) {
 
                     statusBox.textContent =
-                        'Search failed.';
+                        JSON.stringify(error);
 
                     searchButton.disabled = false;
 

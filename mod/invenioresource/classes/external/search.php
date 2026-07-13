@@ -36,6 +36,10 @@ class search extends external_api
             $context
         );
 
+        $keywordservice = new \mod_invenioresource\service\keyword_service();
+
+        $keywordservice->increase_keyword($keyword);
+
         $service = new search_service();
 
         return json_encode(

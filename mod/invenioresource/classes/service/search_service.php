@@ -17,6 +17,9 @@ class search_service
 
         $key = md5(trim(mb_strtolower($query)));
 
+        $keywordservice = new keyword_service();
+        $keywordservice->increase_keyword($query);
+
         error_log("CACHE KEY: " . $key . " QUERY: " . $query);
 
         if (($result = $cache->get($key)) !== false) {

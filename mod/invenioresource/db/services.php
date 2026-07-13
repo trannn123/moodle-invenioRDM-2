@@ -41,4 +41,23 @@ $functions = [
             true,
 
     ],
+
+    'mod_invenioresource_get_popular_keywords' => [
+
+        'classname' =>
+            'mod_invenioresource\external\get_popular_keywords',
+
+        'methodname' =>
+            'execute',
+
+        'description' =>
+            'Get popular search keywords',
+
+        'type' =>
+            'read',
+
+        'ajax' =>
+            true,
+
+    ],
 ];
