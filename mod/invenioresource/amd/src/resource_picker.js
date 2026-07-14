@@ -6,7 +6,9 @@ define([
     ModalFactory
 ) {
 
-    const init = () => {
+    const init = (cmid) => {
+
+        alert('CMID=' + cmid);
 
         const button = document.querySelector('[name="selectresource"]');
 
@@ -184,7 +186,8 @@ define([
                     {
                         methodname: 'mod_invenioresource_search',
                         args: {
-                            keyword: keyword
+                            keyword: keyword,
+                            cmid: cmid
                         }
                     }
                 ]);
