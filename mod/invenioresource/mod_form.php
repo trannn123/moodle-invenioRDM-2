@@ -70,10 +70,11 @@ class mod_invenioresource_mod_form extends moodleform_mod
                     $record->recordid
                 );
 
-                if (!empty($inveniorecord['metadata']['title'])) {
+
+                if (!empty($inveniorecord['data']['metadata']['title'])) {
 
                     $selectedtitle =
-                        $inveniorecord['metadata']['title'];
+                        $inveniorecord['data']['metadata']['title'];
 
                 }
             }
