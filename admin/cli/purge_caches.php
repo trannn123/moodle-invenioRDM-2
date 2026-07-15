@@ -1,4 +1,4 @@
-<?php
+php admin/cli/adhoc_task.php --execute<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -26,8 +26,8 @@
 define('CLI_SCRIPT', true);
 define('IGNORE_COMPONENT_CACHE', true);
 
-require(__DIR__.'/../../config.php');
-require_once($CFG->libdir.'/clilib.php');
+require(__DIR__ . '/../../config.php');
+require_once($CFG->libdir . '/clilib.php');
 
 $longoptions = [
     'help' => false,

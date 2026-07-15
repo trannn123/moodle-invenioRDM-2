@@ -6,11 +6,11 @@ define([
     ModalFactory
 ) {
 
-    const init = (cmid) => {
+    const openPicker = async (cmid) => {
 
-        alert('CMID=' + cmid);
-
-        const button = document.querySelector('[name="selectresource"]');
+        const button = document.querySelector(
+            '[name="selectresource"]'
+        );
 
         if (!button) {
             return;
@@ -53,14 +53,11 @@ define([
 
         }
 
-        button.addEventListener('click', async (e) => {
 
-            e.preventDefault();
-
-            const modal = await ModalFactory.create({
-                type: ModalFactory.types.DEFAULT,
-                title: 'Search Invenio Resource',
-                body: `
+        const modal = await ModalFactory.create({
+            type: ModalFactory.types.DEFAULT,
+            title: 'Search Invenio Resource',
+            body: `
                 <div class="mb-3">
                     <input
                         id="invenio-search-keyword"
@@ -98,132 +95,132 @@ define([
                 
                 </div>
                 `
+        });
+
+        modal.show();
+
+        const modalRoot = modal.getRoot();
+
+        const searchButton =
+            modalRoot.find('#invenio-search-btn')[0];
+
+        const searchInput =
+            modalRoot.find('#invenio-search-keyword')[0];
+
+        const resultBox =
+            modalRoot.find('#invenio-search-result')[0];
+
+        const statusBox =
+            modalRoot.find('#invenio-search-status')[0];
+
+        const popularBox =
+            modalRoot.find('#popular-keywords')[0];
+
+        const popularRequest = Ajax.call([
+            {
+                methodname: 'mod_invenioresource_get_popular_keywords',
+                args: {}
+            }
+        ]);
+
+        let popularKeywords = [];
+
+        try {
+
+            popularKeywords = await popularRequest[0];
+
+        } catch (error) {
+
+            statusBox.textContent = JSON.stringify(error);
+
+        }
+
+        if (popularBox && popularKeywords.length > 0) {
+
+            popularBox.innerHTML = '';
+
+            popularKeywords.forEach((keyword) => {
+
+                const button = document.createElement('button');
+
+                button.className =
+                    'btn btn-sm btn-outline-primary rounded-pill me-2 mb-2';
+
+                button.textContent = keyword;
+
+                button.addEventListener('click', () => {
+
+                    searchInput.value = keyword;
+
+                });
+
+                popularBox.appendChild(button);
             });
 
-            modal.show();
+        }
 
-            const modalRoot = modal.getRoot();
+        searchButton.addEventListener('click', async () => {
 
-            const searchButton =
-                modalRoot.find('#invenio-search-btn')[0];
+            const keyword = searchInput.value.trim();
 
-            const searchInput =
-                modalRoot.find('#invenio-search-keyword')[0];
+            statusBox.textContent = 'Searching...';
 
-            const resultBox =
-                modalRoot.find('#invenio-search-result')[0];
+            searchButton.disabled = true;
 
-            const statusBox =
-                modalRoot.find('#invenio-search-status')[0];
+            if (!keyword) {
 
-            const popularBox =
-                modalRoot.find('#popular-keywords')[0];
+                statusBox.textContent =
+                    'Please enter keyword.';
 
-            const popularRequest = Ajax.call([
+                searchButton.disabled = false;
+
+                return;
+            }
+
+            statusBox.textContent = 'Searching...';
+
+            const request = Ajax.call([
                 {
-                    methodname: 'mod_invenioresource_get_popular_keywords',
-                    args: {}
+                    methodname: 'mod_invenioresource_search',
+                    args: {
+                        keyword: keyword,
+                        cmid: cmid
+                    }
                 }
             ]);
 
-            let popularKeywords = [];
-
             try {
 
-                popularKeywords = await popularRequest[0];
+                const response = await request[0];
 
-            } catch (error) {
+                statusBox.textContent = '';
 
-                statusBox.textContent = JSON.stringify(error);
+                const data = JSON.parse(response);
 
-            }
+                const records = data.hits?.hits ?? [];
 
-            if (popularBox && popularKeywords.length > 0) {
+                resultBox.innerHTML = '';
 
-                popularBox.innerHTML = '';
+                searchButton.disabled = false;
 
-                popularKeywords.forEach((keyword) => {
+                if (records.length === 0) {
 
-                    const button = document.createElement('button');
-
-                    button.className =
-                        'btn btn-sm btn-outline-primary rounded-pill me-2 mb-2';
-
-                    button.textContent = keyword;
-
-                    button.addEventListener('click', () => {
-
-                        searchInput.value = keyword;
-
-                    });
-
-                    popularBox.appendChild(button);
-                });
-
-            }
-
-            searchButton.addEventListener('click', async () => {
-
-                const keyword = searchInput.value.trim();
-
-                statusBox.textContent = 'Searching...';
-
-                searchButton.disabled = true;
-
-                if (!keyword) {
-
-                    statusBox.textContent =
-                        'Please enter keyword.';
-
-                    searchButton.disabled = false;
+                    resultBox.textContent =
+                        'No resource found.';
 
                     return;
                 }
 
-                statusBox.textContent = 'Searching...';
+                records.forEach((record) => {
 
-                const request = Ajax.call([
-                    {
-                        methodname: 'mod_invenioresource_search',
-                        args: {
-                            keyword: keyword,
-                            cmid: cmid
-                        }
-                    }
-                ]);
+                    const title =
+                        record.metadata?.title ?? record.id;
 
-                try {
+                    const item = document.createElement('div');
 
-                    const response = await request[0];
+                    item.className = 'mb-3';
 
-                    statusBox.textContent = '';
-
-                    const data = JSON.parse(response);
-
-                    const records = data.hits?.hits ?? [];
-
-                    resultBox.innerHTML = '';
-
-                    searchButton.disabled = false;
-
-                    if (records.length === 0) {
-
-                        resultBox.textContent =
-                            'No resource found.';
-
-                        return;
-                    }
-
-                    records.forEach((record) => {
-
-                        const title =
-                            record.metadata?.title ?? record.id;
-
-                        const item = document.createElement('div');
-
-                        item.className = 'mb-3';
-
-                        item.innerHTML = `
+                    item.innerHTML = `
                             <strong>${title}</strong>
                             <br>
                             <button
@@ -241,77 +238,108 @@ define([
                             </button>
                         `;
 
-                        resultBox.appendChild(item);
+                    resultBox.appendChild(item);
 
-                        item
-                            .querySelector('.detail-record')
-                            .addEventListener('click', async () => {
+                    item
+                        .querySelector('.detail-record')
+                        .addEventListener('click', async () => {
 
-                                const request = Ajax.call([
-                                    {
-                                        methodname:
-                                            'mod_invenioresource_get_resource_detail',
-                                        args: {
-                                            recordid: record.id
-                                        }
+                            const request = Ajax.call([
+                                {
+                                    methodname:
+                                        'mod_invenioresource_get_resource_detail',
+                                    args: {
+                                        recordid: record.id
                                     }
-                                ]);
-
-                                const html = await request[0];
-
-                                const previewModal = await ModalFactory.create({
-                                    type: ModalFactory.types.DEFAULT,
-                                    title: 'Resource Detail',
-                                    body: html
-                                });
-
-                                previewModal.show();
-
-                            });
-
-                        item
-                            .querySelector('.select-record')
-                            .addEventListener('click', () => {
-
-                                const recordId = record.id;
-
-                                document.querySelector(
-                                    '[name="recordid"]'
-                                ).value = recordId;
-
-
-                                const selectedName =
-                                    document.querySelector(
-                                        '#selected-resource-name'
-                                    );
-
-                                if (selectedName) {
-                                    selectedName.textContent = title;
                                 }
+                            ]);
 
+                            const html = await request[0];
 
-                                modal.hide();
-
-                                setTimeout(() => {
-                                    modal.destroy();
-                                }, 300);
-
+                            const previewModal = await ModalFactory.create({
+                                type: ModalFactory.types.DEFAULT,
+                                title: 'Resource Detail',
+                                body: html
                             });
 
-                    });
+                            previewModal.show();
 
-                } catch (error) {
+                            require([
+                                'mod_invenioresource/metadata_collapse'
+                            ], function (MetadataCollapse) {
 
-                    statusBox.textContent =
-                        JSON.stringify(error);
+                                MetadataCollapse.init(
+                                    previewModal.getRoot()[0]
+                                );
 
-                    searchButton.disabled = false;
+                            });
+                        });
 
-                }
+                    item
+                        .querySelector('.select-record')
+                        .addEventListener('click', () => {
 
-            });
+                            const recordId = record.id;
+
+                            document.querySelector(
+                                '[name="recordid"]'
+                            ).value = recordId;
+
+
+                            const selectedName =
+                                document.querySelector(
+                                    '#selected-resource-name'
+                                );
+
+                            if (selectedName) {
+                                selectedName.textContent = title;
+                            }
+
+
+                            modal.hide();
+
+                            setTimeout(() => {
+                                modal.destroy();
+                            }, 300);
+
+                        });
+
+                });
+
+            } catch (error) {
+
+                statusBox.textContent =
+                    JSON.stringify(error);
+
+                searchButton.disabled = false;
+
+            }
 
         });
+
+
+    };
+
+    const init = (cmid) => {
+
+        const button = document.querySelector(
+            '[name="selectresource"]'
+        );
+
+        if (!button) {
+            return;
+        }
+
+        button.addEventListener(
+            'click',
+            function (e) {
+
+                e.preventDefault();
+
+                openPicker(cmid);
+
+            }
+        );
 
     };
 

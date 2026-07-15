@@ -14,6 +14,8 @@
 
                 <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
 
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                
                 <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true"/>
 
                 <FIELD NAME="intro" TYPE="text" NOTNULL="false"/>

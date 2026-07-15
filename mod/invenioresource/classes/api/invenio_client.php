@@ -14,6 +14,8 @@ class invenio_client
 
     private string $apiurl;
     private string $token;
+    private string $clientid;
+    private string $clientsecret;
 
 
     public function __construct()
@@ -23,12 +25,106 @@ class invenio_client
             'apiurl'
         );
 
-        $this->token = get_config(
+        global $USER;
+
+        $this->token = $this->get_user_oidc_token();
+        error_log("MOODLE USER ID: " . $USER->id);
+
+        $this->clientid = get_config(
             'local_inveniordm',
-            'apitoken'
+            'clientid'
+        );
+
+        $this->clientsecret = get_config(
+            'local_inveniordm',
+            'clientsecret'
         );
     }
 
+    private function get_user_oidc_token(): string
+    {
+        global $USER, $DB;
+
+        $record = $DB->get_record(
+            'auth_oidc_token',
+            [
+                'userid' => $USER->id
+            ]
+        );
+
+        if (!$record) {
+            error_log("OIDC TOKEN NOT FOUND FOR USER: " . $USER->id);
+            return '';
+        }
+
+        error_log(
+            "OIDC TOKEN FOUND FOR USER: " . $USER->username
+        );
+
+        return $record->token;
+    }
+
+    /**
+     * Get single record
+     */
+    public function get_record(
+        string $id
+    ): array
+    {
+
+        $url =
+            $this->apiurl .
+            '/records/' .
+            $id;
+
+        error_log("GET RECORD: " . $id);
+        return $this->request($url);
+    }
+
+    private function request(
+        string $url
+    ): array
+    {
+
+
+        $ch = curl_init();
+
+        error_log("SEND TOKEN START: " . substr($this->token, 0, 50));
+        curl_setopt_array($ch, [
+
+            CURLOPT_URL => $url,
+
+            CURLOPT_RETURNTRANSFER => true,
+
+
+            CURLOPT_HTTPHEADER => [
+                'Accept: application/json',
+                'Authorization: Bearer ' . $this->token
+            ],
+
+
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false
+
+        ]);
+
+
+        $response = curl_exec($ch);
+
+        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        error_log('Invenio HTTP Status: ' . $status);
+        error_log('Invenio Response: ' . substr($response, 0, 10000));
+        curl_close($ch);
+
+
+        error_log('RAW RESPONSE: ' . $response);
+
+        return [
+            'http_status' => $status,
+            'data' => json_decode($response, true) ?? []
+        ];
+    }
 
     /**
      * Get all records
@@ -62,64 +158,6 @@ class invenio_client
             $url .= '?q=' . urlencode($query);
         }
         error_log("CALL INVENIO API");
-        return $this->request($url);
-    }
-
-    private function request(
-        string $url
-    ): array
-    {
-
-
-        $ch = curl_init();
-
-
-        curl_setopt_array($ch, [
-
-            CURLOPT_URL => $url,
-
-            CURLOPT_RETURNTRANSFER => true,
-
-
-            CURLOPT_HTTPHEADER => [
-                'Accept: application/json',
-                'Authorization: Bearer ' . $this->token
-            ],
-
-
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_SSL_VERIFYHOST => false
-
-        ]);
-
-
-        $response = curl_exec($ch);
-
-
-        curl_close($ch);
-
-
-        return json_decode(
-            $response,
-            true
-        ) ?? [];
-
-    }
-
-    /**
-     * Get single record
-     */
-    public function get_record(
-        string $id
-    ): array
-    {
-
-        $url =
-            $this->apiurl .
-            '/records/' .
-            $id;
-
-
         return $this->request($url);
     }
 
@@ -343,4 +381,36 @@ class invenio_client
 
     }
 
+    private function get_access_token(): string
+    {
+        $url = $this->apiurl . '/oauth/token';
+
+        $postdata = http_build_query([
+            'grant_type' => 'client_credentials',
+            'client_id' => $this->clientid,
+            'client_secret' => $this->clientsecret
+        ]);
+
+        $ch = curl_init();
+
+        curl_setopt_array($ch, [
+            CURLOPT_URL => $url,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $postdata,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => [
+                'Content-Type: application/x-www-form-urlencoded'
+            ],
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false
+        ]);
+
+        $response = curl_exec($ch);
+
+        curl_close($ch);
+
+        $data = json_decode($response, true);
+
+        return $data['access_token'] ?? '';
+    }
 }

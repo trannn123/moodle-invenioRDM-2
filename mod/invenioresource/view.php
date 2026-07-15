@@ -34,7 +34,10 @@ $PAGE->set_context($context);
 
 $PAGE->requires->js_call_amd(
     'mod_invenioresource/resource_detail',
-    'init'
+    'init',
+    [
+        $cm->id
+    ]
 );
 
 $PAGE->set_title($instance->name);

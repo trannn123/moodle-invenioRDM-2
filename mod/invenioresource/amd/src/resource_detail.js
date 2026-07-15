@@ -6,7 +6,7 @@ define([
     ModalFactory
 ) {
 
-    const init = () => {
+    const init = (cmid) => {
 
         const button = document.querySelector(
             '#view-resource-detail'
@@ -37,8 +37,40 @@ define([
                 ]);
 
 
-                const html =
-                    await request[0];
+                const response =
+                    JSON.parse(
+                        await request[0]
+                    );
+
+
+                let body = '';
+
+
+                if (!response.success) {
+
+                    body = `
+                        <div class="alert alert-warning">
+                            ${response.message}
+                        </div>
+                    `;
+
+                    if (response.canreplace) {
+
+                        body += `
+                            <button 
+                                class="btn btn-primary"
+                                id="replace-resource">
+                                Replace Resource
+                            </button>
+                        `;
+
+                    }
+
+                } else {
+
+                    body = response.html;
+
+                }
 
 
                 const modal =
@@ -49,11 +81,34 @@ define([
                             'Resource Detail',
 
                         body:
-                        html
+                        body
                     });
 
 
                 modal.show();
+
+                const replaceButton =
+                    modal.getRoot().find('#replace-resource')[0];
+
+
+                if (replaceButton) {
+
+                    replaceButton.addEventListener(
+                        'click',
+                        () => {
+
+                            modal.hide();
+
+                            window.location.href =
+                                M.cfg.wwwroot +
+                                '/course/modedit.php?update=' +
+                                cmid +
+                                '&return=1';
+
+                        }
+                    );
+
+                }
 
                 require([
                     'mod_invenioresource/metadata_collapse'
