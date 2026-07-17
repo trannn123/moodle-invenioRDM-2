@@ -14,7 +14,9 @@ class mod_invenioresource_mod_form extends moodleform_mod
         $mform = $this->_form;
         global $PAGE, $OUTPUT, $CFG;
 
-        $cmid = $this->current->coursemodule ?? 0;
+        $cmid = !empty($this->current->coursemodule)
+            ? (int)$this->current->coursemodule
+            : 0;
 
         $PAGE->requires->js_call_amd(
             'mod_invenioresource/resource_picker',

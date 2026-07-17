@@ -184,7 +184,7 @@ define([
                     methodname: 'mod_invenioresource_search',
                     args: {
                         keyword: keyword,
-                        cmid: cmid
+                        cmid: Number(cmid) || 0
                     }
                 }
             ]);
@@ -197,7 +197,7 @@ define([
 
                 const data = JSON.parse(response);
 
-                const records = data.hits?.hits ?? [];
+                const records = data.data?.hits?.hits ?? [];
 
                 resultBox.innerHTML = '';
 
@@ -254,12 +254,12 @@ define([
                                 }
                             ]);
 
-                            const html = await request[0];
+                            const response = JSON.parse(await request[0]);
 
                             const previewModal = await ModalFactory.create({
                                 type: ModalFactory.types.DEFAULT,
                                 title: 'Resource Detail',
-                                body: html
+                                body: response.html
                             });
 
                             previewModal.show();

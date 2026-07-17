@@ -31,7 +31,8 @@ define([
                             'mod_invenioresource_get_resource_detail',
 
                         args: {
-                            recordid: recordid
+                            recordid: recordid,
+                            cmid: cmid
                         }
                     }
                 ]);

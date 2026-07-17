@@ -19,6 +19,7 @@ class search extends external_api
         self::validate_parameters(
             self::execute_parameters(),
             [
+                'cmid' => $cmid,
                 'keyword' => $keyword
             ]
         );

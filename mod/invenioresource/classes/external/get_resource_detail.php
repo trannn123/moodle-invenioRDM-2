@@ -7,6 +7,7 @@ defined('MOODLE_INTERNAL') || die();
 global $CFG;
 
 require_once($CFG->libdir . '/externallib.php');
+require_once($CFG->dirroot . '/course/lib.php');
 
 use context_system;
 use external_api;
@@ -15,12 +16,13 @@ use external_value;
 
 class get_resource_detail extends external_api
 {
-    public static function execute(string $recordid)
+    public static function execute(string $recordid, int $cmid = 0)
     {
         self::validate_parameters(
             self::execute_parameters(),
             [
-                'recordid' => $recordid
+                'recordid' => $recordid,
+                'cmid' => $cmid
             ]
         );
 
@@ -42,19 +44,29 @@ class get_resource_detail extends external_api
 
             global $DB, $USER;
 
+            $cm = get_coursemodule_from_id(
+                'invenioresource',
+                $cmid,
+                0,
+                false,
+                MUST_EXIST
+            );
+
             $resource = $DB->get_record(
                 'invenioresource',
                 [
-                    'recordid' => $recordid
+                    'id' => $cm->instance
                 ],
                 'id, userid',
-                IGNORE_MULTIPLE
+                MUST_EXIST
             );
 
             $canreplace = false;
-
+            error_log("resourceid truoc" . (int)$resource->userid);
+            error_log("userid truoc" . (int)$USER->id);
             if ($resource) {
-
+                error_log("resourceid" . (int)$resource->userid);
+                error_log("userid" . (int)$USER->id);
                 $canreplace =
                     ((int)$resource->userid === (int)$USER->id);
 
@@ -91,9 +103,17 @@ class get_resource_detail extends external_api
     public static function execute_parameters()
     {
         return new external_function_parameters([
+
             'recordid' => new external_value(
                 PARAM_TEXT,
                 'Invenio record id'
+            ),
+
+            'cmid' => new external_value(
+                PARAM_INT,
+                'Course module id',
+                VALUE_DEFAULT,
+                0
             )
         ]);
     }

@@ -23,12 +23,14 @@ function invenioresource_supports($feature)
  */
 function invenioresource_add_instance($data)
 {
-    global $DB;
+    global $DB, $USER;
 
     error_log(print_r($data, true));
 
     $data->timecreated = time();
     $data->timemodified = time();
+
+    $data->userid = $USER->id;
 
     return $DB->insert_record(
         'invenioresource',
@@ -47,6 +49,15 @@ function invenioresource_update_instance($data)
     $data->timemodified = time();
     $data->id = $data->instance;
 
+    $old = $DB->get_record(
+        'invenioresource',
+        ['id' => $data->id],
+        'userid',
+        MUST_EXIST
+    );
+
+    $data->userid = $old->userid;
+    
     return $DB->update_record(
         'invenioresource',
         $data
