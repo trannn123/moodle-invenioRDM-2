@@ -20,9 +20,15 @@ $service = new \mod_invenioresource\service\upload_service();
 
 $metadata = [
 
+    "files" => [
+        "enabled" => true
+    ],
+
     "metadata" => [
 
-        "title" => "Test Resource From InvenioResource Module",
+        "title" => "Test Custom Fields",
+
+        "publication_date" => date('Y-m-d'),
 
         "resource_type" => [
             "id" => "publication"
@@ -36,10 +42,49 @@ $metadata = [
                     "family_name" => "User"
                 ]
             ]
-        ],
+        ]
+    ],
 
-        "publication_date" => "2026-07-11"
+    "custom_fields" => [
 
+        "moodle:identifier" => "TEST-" . time(),
+
+        "moodle:language" => "English",
+
+        "moodle:documentary_type" => "Book",
+
+        "moodle:format" => "PDF",
+
+        "moodle:location" => "Can Tho",
+
+        "moodle:learning_resource_type" => "Lecture",
+
+        "moodle:target_audience" => "Student",
+
+        "moodle:educational_level" => "University",
+
+        "moodle:induced_activity" => "Reading",
+
+        "moodle:copyright" => "CC-BY",
+
+        "moodle:objective" => "Testing",
+
+        "moodle:taxon_entry" => "Computer Science",
+
+        "moodle:role" => "Author",
+
+        "moodle:entity" => "CTU",
+
+        "moodle:date" => date('Y-m-d'),
+
+        "moodle:relation" => "None",
+
+        "moodle:metadata_accessibility" => "Public",
+
+        "moodle:free_keyword" => [
+            "moodle",
+            "invenio"
+        ]
     ]
 
 ];

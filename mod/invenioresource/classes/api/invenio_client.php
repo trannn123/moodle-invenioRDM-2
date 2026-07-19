@@ -14,14 +14,11 @@ class invenio_client
 
     private string $apiurl;
     private string $token;
-    private string $clientid;
-    private string $clientsecret;
-
 
     public function __construct()
     {
         $this->apiurl = get_config(
-            'local_inveniordm',
+            'mod_invenioresource',
             'apiurl'
         );
 
@@ -29,16 +26,6 @@ class invenio_client
 
         $this->token = $this->get_user_oidc_token();
         error_log("MOODLE USER ID: " . $USER->id);
-
-        $this->clientid = get_config(
-            'local_inveniordm',
-            'clientid'
-        );
-
-        $this->clientsecret = get_config(
-            'local_inveniordm',
-            'clientsecret'
-        );
     }
 
     private function get_user_oidc_token(): string
@@ -174,7 +161,8 @@ class invenio_client
             $this->apiurl .
             '/records';
 
-
+        error_log("CREATE RECORD PAYLOAD:");
+        error_log(json_encode($metadata, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         return $this->post(
             $url,
             $metadata
@@ -226,7 +214,11 @@ class invenio_client
 
 
         $response = curl_exec($ch);
+        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+        error_log("POST STATUS: " . $status);
+        error_log("POST RESPONSE:");
+        error_log($response);
 
         curl_close($ch);
 
@@ -379,38 +371,5 @@ class invenio_client
             []
         );
 
-    }
-
-    private function get_access_token(): string
-    {
-        $url = $this->apiurl . '/oauth/token';
-
-        $postdata = http_build_query([
-            'grant_type' => 'client_credentials',
-            'client_id' => $this->clientid,
-            'client_secret' => $this->clientsecret
-        ]);
-
-        $ch = curl_init();
-
-        curl_setopt_array($ch, [
-            CURLOPT_URL => $url,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $postdata,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                'Content-Type: application/x-www-form-urlencoded'
-            ],
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_SSL_VERIFYHOST => false
-        ]);
-
-        $response = curl_exec($ch);
-
-        curl_close($ch);
-
-        $data = json_decode($response, true);
-
-        return $data['access_token'] ?? '';
     }
 }

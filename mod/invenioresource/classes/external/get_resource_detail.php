@@ -87,7 +87,8 @@ class get_resource_detail extends external_api
             ]);
 
         }
-
+        error_log("DATA BEFORE RENDER:");
+        error_log(print_r($record['data']['custom_fields'] ?? null, true));
         $renderer = $PAGE->get_renderer(
             'mod_invenioresource'
         );

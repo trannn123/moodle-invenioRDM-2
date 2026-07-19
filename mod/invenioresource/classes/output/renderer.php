@@ -10,7 +10,8 @@ class renderer extends \plugin_renderer_base
     {
         $metadata = $record['metadata'] ?? [];
         $customfields = $record['custom_fields'] ?? [];
-
+        error_log("CUSTOMFIELDS:");
+        error_log(print_r($customfields, true));
         $title = $metadata['title'] ?? 'Untitled';
 
         $description =
