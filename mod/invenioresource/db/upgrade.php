@@ -23,12 +23,8 @@ function xmldb_invenioresource_upgrade($oldversion)
 
         $dbman = $DB->get_manager();
 
-        if (!$dbman->field_exists($table, 'userid')) {
-
-            $dbman->add_field(
-                $table,
-                $field
-            );
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
         }
 
 
@@ -39,6 +35,81 @@ function xmldb_invenioresource_upgrade($oldversion)
         );
     }
 
+
+    if ($oldversion < 2026072000) {
+
+        $table = new xmldb_table('invenioresource');
+
+        $field = new xmldb_field(
+            'overview',
+            XMLDB_TYPE_TEXT,
+            null,
+            null,
+            null,
+            null,
+            null,
+            'introformat'
+        );
+
+        $dbman = $DB->get_manager();
+
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        upgrade_mod_savepoint(
+            true,
+            2026072000,
+            'invenioresource'
+        );
+    }
+
+    if ($oldversion < 2026072001) {
+
+        $table = new xmldb_table('invenioresource');
+
+        $field = new xmldb_field(
+            'lessoncontent',
+            XMLDB_TYPE_TEXT,
+            null,
+            null,
+            null,
+            null,
+            null,
+            'overview'
+        );
+
+        $dbman = $DB->get_manager();
+
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        upgrade_mod_savepoint(
+            true,
+            2026072001,
+            'invenioresource'
+        );
+    }
+
+    if ($oldversion < 2026072100) {
+
+        $table = new xmldb_table('invenioresource');
+
+        $field = new xmldb_field('lessoncontent');
+
+        $dbman = $DB->get_manager();
+
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+
+        upgrade_mod_savepoint(
+            true,
+            2026072100,
+            'invenioresource'
+        );
+    }
 
     return true;
 }
