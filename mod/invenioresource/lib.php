@@ -27,10 +27,6 @@ function invenioresource_add_instance($data)
 
     error_log(print_r($data, true));
 
-    if (!empty($data->overview_editor['text'])) {
-        $data->overview = $data->overview_editor['text'];
-    }
-
     $data->timecreated = time();
     $data->timemodified = time();
 
@@ -50,10 +46,6 @@ function invenioresource_update_instance($data)
 {
     global $DB;
 
-    if (!empty($data->overview_editor['text'])) {
-        $data->overview = $data->overview_editor['text'];
-    }
-
     $data->timemodified = time();
     $data->id = $data->instance;
 
@@ -65,7 +57,7 @@ function invenioresource_update_instance($data)
     );
 
     $data->userid = $old->userid;
-    
+
     return $DB->update_record(
         'invenioresource',
         $data

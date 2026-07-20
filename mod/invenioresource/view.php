@@ -45,15 +45,15 @@ $PAGE->set_title($instance->name);
 $PAGE->set_heading($course->fullname);
 echo $OUTPUT->header();
 
-$output = $PAGE->get_renderer('mod_invenioresource');
+echo '<div class="card mb-4">';
+echo '<div class="card-header">';
+echo '<h4 class="mb-0">Learning Resource</h4>';
+echo '</div>';
 
-/* Lesson UI */
-
-$resourcebutton = '';
-
+echo '<div class="card-body">';
 if ($record) {
 
-    $resourcebutton = html_writer::tag(
+    echo html_writer::tag(
         'button',
         'View Resource Detail',
         [
@@ -65,21 +65,12 @@ if ($record) {
 
 } else {
 
-    $resourcebutton = $OUTPUT->notification(
+    echo $OUTPUT->notification(
         'No resource selected.',
         'notifyproblem'
     );
 
 }
-
-$data = [
-    'overview' => format_text(
-        $instance->overview,
-        FORMAT_HTML
-    ),
-    'resourcebutton' => $resourcebutton,
-];
-
-echo $output->render_lesson($data);
-
+echo '</div>';
+echo '</div>';
 echo $OUTPUT->footer();

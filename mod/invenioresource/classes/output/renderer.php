@@ -169,15 +169,4 @@ class renderer extends \plugin_renderer_base
             ? $value
             : 'Not specified';
     }
-
-    public function render_lesson(
-        array $data
-    ): string
-    {
-
-        return $this->render_from_template(
-            'mod_invenioresource/lesson',
-            $data
-        );
-    }
 }
