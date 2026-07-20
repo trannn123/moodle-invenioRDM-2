@@ -30,61 +30,7 @@
         {{#availabilitymessage}}
             {{{availabilitymessage}}}
         {{/availabilitymessage}}
-        <div class="lesson-template">
-
-            <h4>Learning Flow</h4>
-
-            <div class="lesson-section">
-                <h5>Overview</h5>
-                <button type="button">+ Add Page</button>
-            </div>
-
-            <div class="lesson-section">
-                <h5>Motivation</h5>
-                <button type="button">+ Add H5P</button>
-            </div>
-
-            <div class="lesson-section">
-                <h5>Learning Outcomes</h5>
-                <button type="button">+ Add Page</button>
-            </div>
-
-            <div class="lesson-section">
-                <h5>Learning Content</h5>
-
-                <div>📹 Video <button type="button">Add URL</button></div>
-                <div>📖 Reading <button type="button">Add Book</button></div>
-                <div>📄 PDF <button type="button">Add File</button></div>
-                <div>📚 Repository Resource <button type="button">Add Invenio Resource</button></div>
-                <div>🧩 Interactive <button type="button">Add H5P</button></div>
-            </div>
-
-            <div class="lesson-section">
-                <h5>Guided Practice</h5>
-                <button type="button">+ Add Lesson/H5P</button>
-            </div>
-
-            <div class="lesson-section">
-                <h5>Independent Practice</h5>
-                <button type="button">+ Add Assignment</button>
-            </div>
-
-            <div class="lesson-section">
-                <h5>Reflection</h5>
-                <button type="button">+ Add Forum</button>
-            </div>
-
-            <div class="lesson-section">
-                <h5>Assessment</h5>
-                <button type="button">+ Add Quiz</button>
-            </div>
-
-            <div class="lesson-section">
-                <h5>Summary</h5>
-                <button type="button">+ Add Page</button>
-            </div>
-
-        </div>
+        
         <ul class="format-tiles-cm-list mt-2 {{^useSubtiles}}no{{/useSubtiles}}subtiles">
             {{#course_modules}}
                 {{>format_tiles/course_module}}
