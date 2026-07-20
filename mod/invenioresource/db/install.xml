@@ -20,8 +20,6 @@
 
                 <FIELD NAME="intro" TYPE="text" NOTNULL="false"/>
 
-                <FIELD NAME="overview" TYPE="text" NOTNULL="false"/>
-
                 <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0"/>
 
                 <FIELD NAME="recordid" TYPE="char" LENGTH="255" NOTNULL="true"/>
@@ -41,6 +39,5 @@
             </INDEXES>
 
         </TABLE>
-
     </TABLES>
 </XMLDB>

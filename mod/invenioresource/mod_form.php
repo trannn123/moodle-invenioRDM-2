@@ -2,8 +2,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-use mod_invenioresource\manager\lesson_content_manager;
-
 global $CFG;
 
 require_once($CFG->dirroot . '/course/moodleform_mod.php');
@@ -60,15 +58,7 @@ class mod_invenioresource_mod_form extends moodleform_mod
                 'invenioresource',
                 ['id' => $this->_instance]
             );
-
-            $lessoncontent =
-                lesson_content_manager::to_form_data(
-                    $record->lessoncontent
-                );
-
-            $this->_customdata['motivation'] =
-                $lessoncontent['motivation'] ?? '';
-
+            
             if ($record && !empty($record->recordid)) {
 
                 require_once(
@@ -141,17 +131,6 @@ class mod_invenioresource_mod_form extends moodleform_mod
 
         $this->standard_intro_elements();
 
-        $mform->addElement(
-            'editor',
-            'overview_editor',
-            'Overview'
-        );
-
-        $mform->setType(
-            'overview_editor',
-            PARAM_RAW
-        );
-
         $this->standard_coursemodule_elements();
 
         $this->add_action_buttons();
@@ -188,10 +167,5 @@ class mod_invenioresource_mod_form extends moodleform_mod
         if (!$record) {
             return;
         }
-
-        $defaultvalues['overview_editor'] = [
-            'text' => $record->overview ?? '',
-            'format' => FORMAT_HTML
-        ];
     }
 }

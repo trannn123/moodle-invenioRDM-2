@@ -6,6 +6,7 @@ global $DB, $OUTPUT, $CFG, $PAGE;
 $id = required_param('id', PARAM_INT);
 
 $cm = get_coursemodule_from_id('invenioresource', $id, 0, false, MUST_EXIST);
+
 $course = get_course($cm->course);
 $instance = $DB->get_record('invenioresource', ['id' => $cm->instance], '*', MUST_EXIST);
 
