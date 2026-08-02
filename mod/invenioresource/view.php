@@ -11,6 +11,10 @@ $course = get_course($cm->course);
 $instance = $DB->get_record('invenioresource', ['id' => $cm->instance], '*', MUST_EXIST);
 
 require_login($course, true, $cm);
+
+$completion = new completion_info($course);
+$completion->set_module_viewed($cm);
+
 require_once(
     $CFG->dirroot .
     '/mod/invenioresource/classes/api/invenio_client.php'
