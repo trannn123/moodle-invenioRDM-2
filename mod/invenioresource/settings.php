@@ -2,19 +2,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-if ($hassiteconfig) {
-
-    $settings = new admin_settingpage(
-        'mod_invenioresource',
-        get_string('pluginname', 'mod_invenioresource')
+if ($ADMIN->fulltree) {
+    $settings->add(
+        new admin_setting_configtext(
+            'mod_invenioresource/apiurl',
+            get_string('apiurl', 'mod_invenioresource'),
+            get_string('apiurl_desc', 'mod_invenioresource'),
+            'https://host.docker.internal/api',
+            PARAM_URL
+        )
     );
-
-    $settings->add(new admin_setting_configtext(
-        'mod_invenioresource/apiurl',
-        'API URL',
-        'InvenioRDM REST API URL',
-        'https://host.docker.internal/api'
-    ));
-
-    $ADMIN->add('modsettings', $settings);
 }

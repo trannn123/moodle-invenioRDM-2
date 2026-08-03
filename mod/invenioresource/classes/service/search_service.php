@@ -13,7 +13,7 @@ class search_service
     {
         $client = new \mod_invenioresource\api\invenio_client();
 
-        $cache = cache::make('mod_invenioresource', 'searchresults');
+        $cache = cache::make('mod_invenioresource', 'searchr_esults');
 
         $key = md5(trim(mb_strtolower($query)));
 
