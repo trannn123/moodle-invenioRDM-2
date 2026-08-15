@@ -12,7 +12,7 @@ class mod_invenioresource_mod_form extends moodleform_mod
     public function definition()
     {
         $mform = $this->_form;
-        global $PAGE, $OUTPUT, $CFG;
+        global $PAGE, $CFG;
 
         $cmid = !empty($this->current->coursemodule)
             ? (int)$this->current->coursemodule
@@ -39,7 +39,6 @@ class mod_invenioresource_mod_form extends moodleform_mod
             'recordid',
             ''
         );
-
         $mform->setType(
             'recordid',
             PARAM_TEXT
@@ -47,9 +46,10 @@ class mod_invenioresource_mod_form extends moodleform_mod
 
         $selectedtitle = get_string(
             'noresourceselected',
-            'invenioresource'
+            'mod_invenioresource'
         );
 
+        // ID trong mdl_invenioresource
         if (!empty($this->_instance)) {
 
             global $DB;
@@ -58,7 +58,7 @@ class mod_invenioresource_mod_form extends moodleform_mod
                 'invenioresource',
                 ['id' => $this->_instance]
             );
-            
+
             if ($record && !empty($record->recordid)) {
 
                 require_once(
@@ -72,9 +72,7 @@ class mod_invenioresource_mod_form extends moodleform_mod
                     $record->recordid
                 );
 
-
                 if (!empty($inveniorecord['data']['metadata']['title'])) {
-
                     $selectedtitle =
                         $inveniorecord['data']['metadata']['title'];
 
@@ -88,10 +86,8 @@ class mod_invenioresource_mod_form extends moodleform_mod
             <div class="form-group row">
                 <div class="col-md-3">
                     <label class="col-form-label">
-                        ' . get_string(
-                'resource',
-                'invenioresource'
-            ) . '
+                        ' . get_string('resource', 'mod_invenioresource')
+            . '
                     </label>
                 </div>
         
@@ -123,7 +119,7 @@ class mod_invenioresource_mod_form extends moodleform_mod
                 'clearresource',
                 get_string(
                     'clearresource',
-                    'invenioresource'
+                    'mod_invenioresource'
                 )
             );
 
@@ -131,6 +127,7 @@ class mod_invenioresource_mod_form extends moodleform_mod
 
         $this->standard_intro_elements();
 
+        // Thiet lap chuan Course Module
         $this->standard_coursemodule_elements();
 
         $this->add_action_buttons();

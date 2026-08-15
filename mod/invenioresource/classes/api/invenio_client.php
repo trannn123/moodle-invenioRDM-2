@@ -329,9 +329,9 @@ class invenio_client
 
 
         /*
- * Step 3:
- * Commit file
- */
+         * Step 3:
+         * Commit file
+         */
 
         $commit_url =
             $this->apiurl .

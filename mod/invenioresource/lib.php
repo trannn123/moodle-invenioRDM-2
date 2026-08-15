@@ -31,13 +31,12 @@ function invenioresource_add_instance($data)
 {
     global $DB, $USER;
 
-    error_log(print_r($data, true));
-
     $data->timecreated = time();
     $data->timemodified = time();
 
     $data->userid = $USER->id;
 
+    // Tra ve ID cua record vua duoc tao
     return $DB->insert_record(
         'invenioresource',
         $data
@@ -53,6 +52,8 @@ function invenioresource_update_instance($data)
     global $DB;
 
     $data->timemodified = time();
+
+    // Gan ID la ID cua instance dang duoc chinh sua
     $data->id = $data->instance;
 
     $old = $DB->get_record(

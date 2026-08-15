@@ -48,7 +48,10 @@ class renderer extends \plugin_renderer_base
 
             // Basic metadata
             'title' => $title,
-            'description' => $description,
+            'description' => format_text(
+                $description,
+                FORMAT_HTML
+            ),
             'downloadurl' => $downloadurl,
 
             'filename' =>

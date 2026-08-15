@@ -622,6 +622,7 @@ class authcode extends base
             $user = authenticate_user_login($username, '', true);
 
             if (!empty($user)) {
+                $this->assign_oidc_role($user, $idtoken);
                 complete_user_login($user);
             } else {
                 // There was a problem in authenticate_user_login.
@@ -692,6 +693,7 @@ class authcode extends base
             $user = authenticate_user_login($username, '', true);
 
             if (!empty($user)) {
+                $this->assign_oidc_role($user, $idtoken);
                 complete_user_login($user);
             } else {
                 // There was a problem in authenticate_user_login.
@@ -793,6 +795,58 @@ class authcode extends base
     }
 
     /**
+     * Assign Moodle roles from Keycloak OIDC roles.
+     *
+     * @param stdClass $user Moodle user.
+     * @param object $idtoken OIDC token.
+     */
+    protected function assign_oidc_role($user, $idtoken)
+    {
+        global $DB;
+
+        $roles = $idtoken->claim('moodle_roles');
+
+        if (empty($roles)) {
+            $realmaccess = $idtoken->claim('realm_access');
+            $roles = $realmaccess['roles'] ?? [];
+        }
+        if (is_string($roles)) {
+            $roles = [$roles];
+        }
+
+        if (!is_array($roles)) {
+            return;
+        }
+
+        $mapping = [
+            'lecturer' => 'coursecreator',
+            'student' => 'student',
+        ];
+
+        $context = \context_system::instance();
+
+        foreach ($roles as $keycloakrole) {
+
+            if (!isset($mapping[$keycloakrole])) {
+                continue;
+            }
+
+            $moodlerole = $DB->get_record(
+                'role',
+                ['shortname' => $mapping[$keycloakrole]],
+                '*',
+                MUST_EXIST
+            );
+
+            role_assign(
+                $moodlerole->id,
+                $user->id,
+                $context->id
+            );
+        }
+    }
+
+    /**
      * Check for an existing user object.
      * @param string $oidcuniqid The user object ID to look up.
      * @param string $username The original username.
@@ -834,55 +888,6 @@ class authcode extends base
         }
 
         return false;
-    }
-
-    /**
-     * Assign Moodle roles from Keycloak OIDC roles.
-     *
-     * @param stdClass $user Moodle user.
-     * @param object $idtoken OIDC token.
-     */
-    protected function assign_oidc_role($user, $idtoken)
-    {
-        global $DB;
-
-        $roles = $idtoken->claim('moodle_roles');
-
-        if (empty($roles)) {
-            $realmaccess = $idtoken->claim('realm_access');
-            $roles = $realmaccess['roles'] ?? [];
-        }
-
-        if (!is_array($roles)) {
-            return;
-        }
-
-        $mapping = [
-            'teacher' => 'coursecreator',
-            'student' => 'student',
-        ];
-
-        $context = \context_system::instance();
-
-        foreach ($roles as $keycloakrole) {
-
-            if (!isset($mapping[$keycloakrole])) {
-                continue;
-            }
-
-            $moodlerole = $DB->get_record(
-                'role',
-                ['shortname' => $mapping[$keycloakrole]],
-                '*',
-                MUST_EXIST
-            );
-
-            role_assign(
-                $moodlerole->id,
-                $user->id,
-                $context->id
-            );
-        }
     }
 
     /**
