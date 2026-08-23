@@ -372,4 +372,58 @@ class invenio_client
         );
 
     }
+
+    /**
+     * Get file content from InvenioRDM
+     */
+    public function get_file_content(
+        string $recordid,
+        string $filename
+    ): array
+    {
+
+        $url =
+            $this->apiurl .
+            '/records/' .
+            rawurlencode($recordid) .
+            '/files/' .
+            rawurlencode($filename) .
+            '/content';
+
+        $ch = curl_init();
+
+        curl_setopt_array($ch, [
+
+            CURLOPT_URL => $url,
+
+            CURLOPT_RETURNTRANSFER => true,
+
+            CURLOPT_HTTPHEADER => [
+                'Authorization: Bearer ' . $this->token
+            ],
+
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false
+        ]);
+
+        $content = curl_exec($ch);
+
+        $status = curl_getinfo(
+            $ch,
+            CURLINFO_HTTP_CODE
+        );
+
+        $contenttype = curl_getinfo(
+            $ch,
+            CURLINFO_CONTENT_TYPE
+        );
+
+        curl_close($ch);
+
+        return [
+            'http_status' => $status,
+            'content_type' => $contenttype,
+            'content' => $content
+        ];
+    }
 }

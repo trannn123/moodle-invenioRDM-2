@@ -96,7 +96,8 @@ class get_resource_detail extends external_api
         return json_encode([
             'success' => true,
             'html' => $renderer->render_resource(
-                $record['data']
+                $record['data'],
+                $cmid
             )
         ]);
     }

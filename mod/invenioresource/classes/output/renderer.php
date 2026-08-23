@@ -6,7 +6,7 @@ defined('MOODLE_INTERNAL') || die();
 
 class renderer extends \plugin_renderer_base
 {
-    public function render_resource(array $record): string
+    public function render_resource(array $record, int $cmid): string
     {
         $metadata = $record['metadata'] ?? [];
         $customfields = $record['custom_fields'] ?? [];
@@ -53,6 +53,14 @@ class renderer extends \plugin_renderer_base
                 FORMAT_HTML
             ),
             'downloadurl' => $downloadurl,
+
+            'previewurl' =>
+                new \moodle_url(
+                    '/mod/invenioresource/preview.php',
+                    [
+                        'id' => $cmid
+                    ]
+                ),
 
             'filename' =>
                 $this->display_value($filename),
