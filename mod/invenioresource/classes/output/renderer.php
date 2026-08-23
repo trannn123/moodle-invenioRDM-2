@@ -50,14 +50,29 @@ class renderer extends \plugin_renderer_base
 
             if ($mimetype === 'application/pdf') {
 
-                $previewurl =
-                    (new \moodle_url(
-                        '/mod/invenioresource/preview.php',
-                        [
-                            'id' => $cmid
-                        ]
-                    ))->out(false);
+                if (!empty($cmid)) {
 
+                    // Preview từ Activity đã được tạo.
+                    $previewurl =
+                        (new \moodle_url(
+                            '/mod/invenioresource/preview.php',
+                            [
+                                'id' => $cmid
+                            ]
+                        ))->out(false);
+
+                } else {
+
+                    // Preview trực tiếp khi đang Search.
+                    $previewurl =
+                        (new \moodle_url(
+                            '/mod/invenioresource/preview.php',
+                            [
+                                'recordid' => $record['id']
+                            ]
+                        ))->out(false);
+
+                }
             }
         }
 

@@ -4,28 +4,50 @@ require('../../config.php');
 
 global $DB, $CFG;
 
-$id = required_param('id', PARAM_INT);
+$id = optional_param('id', 0, PARAM_INT);
+$recordid = optional_param('recordid', '', PARAM_TEXT);
 
-$cm = get_coursemodule_from_id(
-    'invenioresource',
-    $id,
-    0,
-    false,
-    MUST_EXIST
-);
+$inveniorecordid = '';
 
-$course = get_course($cm->course);
+if (!empty($id)) {
 
-require_login($course, true, $cm);
+    // Preview từ Activity đã được tạo.
+    $cm = get_coursemodule_from_id(
+        'invenioresource',
+        $id,
+        0,
+        false,
+        MUST_EXIST
+    );
 
-$instance = $DB->get_record(
-    'invenioresource',
-    [
-        'id' => $cm->instance
-    ],
-    '*',
-    MUST_EXIST
-);
+    $course = get_course($cm->course);
+
+    require_login($course, true, $cm);
+
+    $instance = $DB->get_record(
+        'invenioresource',
+        [
+            'id' => $cm->instance
+        ],
+        '*',
+        MUST_EXIST
+    );
+
+    $inveniorecordid = $instance->recordid;
+
+} else if (!empty($recordid)) {
+
+    // Preview trực tiếp từ Search.
+    require_login();
+
+    $inveniorecordid = $recordid;
+
+} else {
+
+    throw new moodle_exception(
+        'Missing resource information.'
+    );
+}
 
 require_once(
     $CFG->dirroot .
@@ -35,7 +57,7 @@ require_once(
 $client = new \mod_invenioresource\api\invenio_client();
 
 $record = $client->get_record(
-    $instance->recordid
+    $inveniorecordid
 );
 
 if (
@@ -63,7 +85,7 @@ $filename = $file['key'] ?? '';
 $mimetype = $file['mimetype'] ?? '';
 
 $filecontent = $client->get_file_content(
-    $instance->recordid,
+    $inveniorecordid,
     $filename
 );
 
