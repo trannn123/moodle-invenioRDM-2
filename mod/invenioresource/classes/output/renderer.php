@@ -21,6 +21,8 @@ class renderer extends \plugin_renderer_base
         $downloadurl = '';
         $filename = '';
         $filesize = '';
+        $previewurl = '';
+        $mimetype = '';
 
         if (!empty($record['files']['entries'])) {
 
@@ -32,6 +34,9 @@ class renderer extends \plugin_renderer_base
             $filename =
                 $file['key'] ?? '';
 
+            $mimetype =
+                $file['mimetype'] ?? '';
+
             $filesize = '';
 
             if (!empty($file['size'])) {
@@ -40,6 +45,18 @@ class renderer extends \plugin_renderer_base
                     display_size(
                         $file['size']
                     );
+
+            }
+
+            if ($mimetype === 'application/pdf') {
+
+                $previewurl =
+                    (new \moodle_url(
+                        '/mod/invenioresource/preview.php',
+                        [
+                            'id' => $cmid
+                        ]
+                    ))->out(false);
 
             }
         }
@@ -54,13 +71,10 @@ class renderer extends \plugin_renderer_base
             ),
             'downloadurl' => $downloadurl,
 
-            'previewurl' =>
-                new \moodle_url(
-                    '/mod/invenioresource/preview.php',
-                    [
-                        'id' => $cmid
-                    ]
-                ),
+            'previewurl' => $previewurl,
+
+            'previewable' =>
+                ($mimetype === 'application/pdf'),
 
             'filename' =>
                 $this->display_value($filename),
