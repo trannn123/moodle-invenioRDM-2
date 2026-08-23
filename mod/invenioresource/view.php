@@ -59,7 +59,7 @@ if ($record) {
 
     echo html_writer::tag(
         'button',
-        'View Resource Detail',
+        'Xem chi tiết tài nguyên',
         [
             'class' => 'btn btn-primary mt-3 mb-3',
             'id' => 'view-resource-detail',
