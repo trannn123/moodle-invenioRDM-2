@@ -22,6 +22,8 @@ class get_popular_keywords extends external_api
 
     public static function execute()
     {
+        global $USER;
+
         self::validate_parameters(
             self::execute_parameters(),
             []
@@ -32,7 +34,10 @@ class get_popular_keywords extends external_api
             'popular_keywords'
         );
 
-        $keywords = $cache->get('keywords');
+        // Cache riêng cho từng người dùng.
+        $cachekey = 'user_' . $USER->id;
+
+        $keywords = $cache->get($cachekey);
 
         if ($keywords === false) {
             $keywords = [];

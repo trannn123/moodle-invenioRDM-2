@@ -10,6 +10,8 @@ class keyword_service
 {
     public function increase_keyword(string $keyword): void
     {
+        global $USER;
+
         $keyword = trim(
             mb_strtolower($keyword)
         );
@@ -23,7 +25,9 @@ class keyword_service
             'popular_keywords'
         );
 
-        $keywords = $cache->get('keywords');
+        $cachekey = 'user_' . $USER->id;
+
+        $keywords = $cache->get($cachekey);
 
         if ($keywords === false) {
             $keywords = [];
@@ -36,7 +40,7 @@ class keyword_service
         }
 
         $cache->set(
-            'keywords',
+            $cachekey,
             $keywords
         );
     }
